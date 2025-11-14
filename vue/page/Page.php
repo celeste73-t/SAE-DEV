@@ -11,10 +11,12 @@ abstract class Page {
 
     protected function renderHeader() {
         require_once __DIR__ . '/../composant/Header.php';
+        new \vue\composant\Header();
     }
 
     protected function renderFooter() {
         require_once __DIR__ . '/../composant/Footer.php';
+        new \vue\composant\Footer();
     }
  
     abstract protected function renderContent();
