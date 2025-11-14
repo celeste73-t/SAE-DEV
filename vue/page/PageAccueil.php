@@ -8,7 +8,7 @@ class PageAccueil extends Page {
         ?>
         <section class="content">
             <h2>Bienvenue</h2>
-            <p>Contenu de votre page d'accueil</p>
+            <p>Contenu de votre page</p>
         </section>
         <?php
     }
