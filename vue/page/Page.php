@@ -7,6 +7,7 @@ abstract class Page {
     
     public function __construct($title = "Page") {
         $this->title = $title;
+        $this->render();
     }
 
     protected function renderHeader() {
@@ -21,7 +22,7 @@ abstract class Page {
  
     abstract protected function renderContent();
 
-    public function render() {
+    private function render() {
         $this->renderHeader();
         $this->renderContent();
         $this->renderFooter();
