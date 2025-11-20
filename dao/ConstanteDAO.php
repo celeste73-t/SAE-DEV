@@ -1,7 +1,7 @@
 <?php
 namespace dao;
 
-class DateVoteDAO {
+class ConstanteDAO {
     
 }
 ?>
