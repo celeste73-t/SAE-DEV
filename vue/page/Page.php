@@ -1,13 +1,36 @@
 <?php
 namespace vue\page;
 
+use service\UserRole;
+use service\PhaseVote;
+
 abstract class Page {
     protected $title = "Page";
     protected $content;
-    
+    protected UserRole $user;
+    protected PhaseVote $phaseVote;
+
     public function __construct($title = "Page") {
         $this->title = "TopTracks - " . $title;
+        $this->initSession();
         $this->render();
+    }
+
+    protected function initSession() {
+        require_once __DIR__ . '/../../service\Enum.php';
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['user'])) {
+            $_SESSION['user'] = UserRole::Visiteur->value;
+        }
+        $this->user = UserRole::from($_SESSION['user']);
+
+        if (!isset($_SESSION['phaseVote'])) {
+            $_SESSION['phaseVote'] = PhaseVote::PreVote->value; // TODO: Aller chercher la vrai valeur
+        }
+        $this->phaseVote = PhaseVote::from($_SESSION['phaseVote']);
     }
 
     protected function renderHeader() {
