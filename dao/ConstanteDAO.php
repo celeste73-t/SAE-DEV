@@ -15,13 +15,13 @@ class ConstanteDAO {
     }
     
     /**
-     * Récupère toutes les données de la table 'constante_date'.
+     * Récupère toutes les données de la table 'constante'.
      * @return array Les données de la table ou un tableau vide.
      */
     public function getConstanteDate(): array {
         try {
             // Utilisation de query() car la requête ne contient pas de variables.
-            $query = $this->db->query("SELECT * FROM constante_date");
+            $query = $this->db->query("SELECT * FROM constante");
             $constante_date = $query->fetchAll(PDO::FETCH_ASSOC); 
             return $constante_date;
             
