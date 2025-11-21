@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `bdd_celeste`
 --
+CREATE DATABASE IF NOT EXISTS bdd_celeste;
+USE bdd_celeste;
 
 -- --------------------------------------------------------
 

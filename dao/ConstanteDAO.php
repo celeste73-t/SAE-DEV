@@ -18,12 +18,12 @@ class ConstanteDAO {
      * Récupère toutes les données de la table 'constante'.
      * @return array Les données de la table ou un tableau vide.
      */
-    public function getConstanteDate(): array {
+    public function readAll(): array {
         try {
             // Utilisation de query() car la requête ne contient pas de variables.
             $query = $this->db->query("SELECT * FROM constante");
-            $constante_date = $query->fetchAll(PDO::FETCH_ASSOC); 
-            return $constante_date;
+            $constante = $query->fetchAll(PDO::FETCH_ASSOC); 
+            return $constante;
             
         } catch (PDOException $e) {
             error_log("Erreur dans ConstanteDAO::getConstanteDate : " . $e->getMessage());
