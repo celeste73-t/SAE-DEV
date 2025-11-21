@@ -3,8 +3,6 @@
 ## Description du projet
 Ce projet est une **application de vote musical** développée dans le cadre d’un **projet tutoré**.  
 
----
-
 ## Éléments techniques
 
 ### Langage et Architecture
@@ -12,9 +10,9 @@ Ce projet est une **application de vote musical** développée dans le cadre d�
 - **Architecture MVC** (Model – View – Controller)
 
 ### Architecture
-- **Model (M)** : Gestion des données, accès à la base via DAO, définition des entités (Musique, Utilisateur, Vote).
-- **View (V)** : Interfaces utilisateur en **HTML/CSS**, intégration de styles pour une expérience fluide.
-- **Controller (C)** : Logique applicative, gestion des requêtes et des interactions entre modèles et vues.
+- **Model** : Gestion des données, accès à la base via DAO, définition des entités (Musique, Utilisateur, Vote).
+- **View** : Interfaces utilisateur en **HTML/CSS**, intégration de styles pour une expérience fluide.
+- **Controller** : Logique applicative, gestion des requêtes et des interactions entre modèles et vues.
 
 ### Organisation du code
 - `controller/` → Contrôleurs pour orchestrer les actions (vote, affichage, résultats).
