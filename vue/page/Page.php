@@ -1,45 +1,32 @@
 <?php
 namespace vue\page;
 
+require_once __DIR__ . '/../composant/Footer.php';
+require_once __DIR__ . '/../composant/Header.php';
+require_once __DIR__ . '/../../service/SessionManager.php';
+
 use service\UserRole;
 use service\PhaseVote;
+use service\SessionManager;
+
 
 abstract class Page {
     protected $title = "Page";
     protected $content;
-    protected UserRole $user;
-    protected PhaseVote $phaseVote;
+    protected SessionManager $session;
+
 
     public function __construct($title = "Page") {
         $this->title = "TopTracks - " . $title;
-        $this->initSession();
+        $this->session = SessionManager::getInstance();
         $this->render();
     }
 
-    protected function initSession() {
-        require_once __DIR__ . '/../../service\Enum.php';
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        if (!isset($_SESSION['user'])) {
-            $_SESSION['user'] = UserRole::Visiteur->value;
-        }
-        $this->user = UserRole::from($_SESSION['user']);
-
-        if (!isset($_SESSION['phaseVote'])) {
-            $_SESSION['phaseVote'] = PhaseVote::PreVote->value; // TODO: Aller chercher la vrai valeur
-        }
-        $this->phaseVote = PhaseVote::from($_SESSION['phaseVote']);
-    }
-
     protected function renderHeader() {
-        require_once __DIR__ . '/../composant/Header.php';
         new \vue\composant\Header();
     }
 
     protected function renderFooter() {
-        require_once __DIR__ . '/../composant/Footer.php';
         new \vue\composant\Footer();
     }
  
