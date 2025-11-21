@@ -12,7 +12,4 @@ class PageConnexion extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageConnexion("Connexion");
 ?>

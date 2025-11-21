@@ -12,7 +12,4 @@ class PageResultat extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageResultat("Resultat");
 ?>

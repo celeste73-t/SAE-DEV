@@ -13,7 +13,4 @@ class PageContact extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageContact("Contact");
 ?>
