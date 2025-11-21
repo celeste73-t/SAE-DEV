@@ -14,6 +14,4 @@ class PageAccueil extends Page {
     }
 }
 
-// Utilisation
-$page = new PageAccueil("Accueil");
 ?>

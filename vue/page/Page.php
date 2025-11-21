@@ -8,7 +8,8 @@ require_once __DIR__ . '/../../service/SessionManager.php';
 use service\UserRole;
 use service\PhaseVote;
 use service\SessionManager;
-
+use vue\composant\Header;
+use vue\composant\Footer;
 
 abstract class Page {
     protected $title = "Page";
@@ -19,20 +20,19 @@ abstract class Page {
     public function __construct($title = "Page") {
         $this->title = "TopTracks - " . $title;
         $this->session = SessionManager::getInstance();
-        $this->render();
     }
 
     protected function renderHeader() {
-        new \vue\composant\Header();
+        new Header();
     }
 
     protected function renderFooter() {
-        new \vue\composant\Footer();
+        new Footer();
     }
  
     abstract protected function renderContent();
 
-    private function render() {
+    public function render() {
         ?>
             <!DOCTYPE html>
             <html lang="fr">
@@ -40,7 +40,9 @@ abstract class Page {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title><?php echo $this->title; ?></title>
-                <link rel="stylesheet" href="../style/page.css">
+                <link rel="stylesheet" href="vue/style/page.css">
+
+
 
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
