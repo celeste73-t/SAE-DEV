@@ -15,6 +15,8 @@ use controller\ContactController;
 // La page par defaut est la page d'acceuil
 $page = $_GET['page'] ?? 'accueil';
 
+$action = $_GET['action'] ?? 'index';
+
 // gestion des routes en fonction de l'url
 switch ($page) {
     case 'accueil':
@@ -27,7 +29,13 @@ switch ($page) {
         break;
     case 'connexion':
         $controller = new ConnexionController();
-        $controller->index();
+        if ($action === "login") {
+            $controller->login();
+        }elseif ($action === 'logout') {
+            $controller->logout();
+        } else {
+            $controller->index();
+        }
         break;
     case 'contact':
         $controller = new ContactController();

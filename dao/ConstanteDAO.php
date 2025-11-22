@@ -7,7 +7,6 @@ use service\ConnectionBDD;
 use PDO;
 use PDOException;
 
-
 class ConstanteDAO {
     private PDO $db;
 
@@ -32,7 +31,5 @@ class ConstanteDAO {
             return [];
         }
     }
-
-    
 }
 ?>
