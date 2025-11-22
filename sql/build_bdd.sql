@@ -29,6 +29,21 @@ USE bdd_sae;
 -- Structure de la table `categorie`
 --
 
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `motDePasse` VARCHAR(255) NOT NULL,
+  `userType` ENUM('votant', 'administrateur', 'candidat') NOT NULL,
+  UNIQUE INDEX (`email` ASC) VISIBLE,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+--
+-- Structure de la table `categorie`
+--
+
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` int NOT NULL AUTO_INCREMENT,

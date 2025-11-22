@@ -3,6 +3,8 @@ namespace model;
 
 require_once __DIR__ . '/../service/Enum.php';
 
+use service\UserRole;
+
 class User {
     private int $id;
     private string $email;
@@ -35,7 +37,7 @@ class User {
         return $this->password;
     }
 
-    public function getRole(): int {
+    public function getRole(): UserRole {
         return $this->role;
     }
 
@@ -52,7 +54,7 @@ class User {
         $this->password = $password;
     }
 
-    public function setRole(int $role): void {
+    public function setRole(UserRole $role): void {
         $this->role = $role;
     }
 }

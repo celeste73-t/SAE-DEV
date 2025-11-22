@@ -21,13 +21,11 @@ class ConstanteDAO {
      */
     public function readAll(): array {
         try {
-            // Utilisation de query() car la requête ne contient pas de variables.
             $query = $this->db->query("SELECT * FROM constantes");
-            $constante = $query->fetch(PDO::FETCH_ASSOC);
-            return $constante;
-            
+            $constantes = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $constantes ?: []; // retourne tableau vide si rien
         } catch (PDOException $e) {
-            error_log("Erreur dans ConstanteDAO::getConstanteDate : " . $e->getMessage());
+            error_log("Erreur dans ConstanteDAO::readAll : " . $e->getMessage());
             return [];
         }
     }

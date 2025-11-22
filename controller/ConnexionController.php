@@ -3,9 +3,13 @@ namespace controller;
 
 require_once __DIR__ . '/../vue\page\PageConnexion.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../service/SessionManager.php';
+require_once __DIR__ . '/../service/Enum.php';
 
 use vue\page\PageConnexion;
 use dao\UserDAO;
+use service\SessionManager;
+use service\UserRole;
 
 class ConnexionController {
     private $errorMessage = null;
@@ -43,8 +47,7 @@ class ConnexionController {
         }
         
         $session = SessionManager::getInstance();
-        $userRole = UserRole::from($user->getRole());
-        $session->setUserRole($userRole);
+        $session->setUserRole($user->getRole());
 
         // Redirection vers la page d'accueil
         header('Location: index.php?page=accueil');

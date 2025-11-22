@@ -15,6 +15,12 @@ class VotePhase {
 
         $now = new \DateTime();
 
+        if (!isset($constante["startPremierTour"], $constante["startSecondTour"], $constante["endSecondTour"])) {
+            // Valeurs manquantes → retourne PreVote par défaut ou lève une exception
+            error_log("Constantes manquantes pour calculer la phase de vote");
+            return PhaseVote::PreVote;
+        }
+
         $startPremierTour = new \DateTime($constante["startPremierTour"]);
         $startSecondTour = new \DateTime($constante["startSecondTour"]);
         $endSecondTour = new \DateTime($constante["endSecondTour"]);

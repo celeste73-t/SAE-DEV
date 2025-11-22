@@ -3,10 +3,13 @@ namespace dao;
 
 require_once __DIR__ . '/../model/User.php';
 require_once __DIR__ . '/../service/ConnectionBDD.php';
+require_once __DIR__ . '/../service/Enum.php';
 
 use service\ConnectionBDD;
 use PDO;
 use PDOException;
+use model\User;
+use service\UserRole;
 
 class UserDAO {
     private PDO $db;
@@ -28,13 +31,20 @@ class UserDAO {
             if (!$data) {
                 return null;
             }
+
+            $role = match($data['userType']) {
+                'votant' => UserRole::User,
+                'candidat' => UserRole::Candidat,
+                'administrateur' => UserRole::Admin,
+                default => UserRole::Visiteur
+            };
             
             return new User(
-                $data['id'],
+                (int)$data['id'],
                 $data['email'],
-                $data['pseudo'],
-                $data['password'],
-                $data['role']
+                $data['nom'],
+                $data['motDePasse'],
+                $role
             );
             
         } catch (PDOException $e) {
