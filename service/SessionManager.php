@@ -2,6 +2,7 @@
 namespace service;
 
 require_once __DIR__ . '/Enum.php';
+require_once __DIR__ . '/VotePhase.php';
 
 
 class SessionManager {
@@ -31,7 +32,8 @@ class SessionManager {
         $this->userRole = UserRole::from($_SESSION['user']);
 
         if (!isset($_SESSION['phaseVote'])) {
-            $_SESSION['phaseVote'] = PhaseVote::PreVote->value; // TODO: Aller chercher la vrai valeur
+            $votePhase = new VotePhase();
+            $_SESSION['phaseVote'] = $votePhase->getPhaseVote()->value;
         }
         $this->phaseVote = PhaseVote::from($_SESSION['phaseVote']);
     }

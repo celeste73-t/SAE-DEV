@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `bdd_celeste`
+-- Base de données : `bdd_sae`
 --
-CREATE DATABASE IF NOT EXISTS bdd_celeste;
-USE bdd_celeste;
+CREATE DATABASE IF NOT EXISTS bdd_sae;
+USE bdd_sae;
 
 -- --------------------------------------------------------
 
@@ -98,11 +98,10 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
 -- Structure de la table `constante`
 --
 
-DROP TABLE IF EXISTS `constante`;
-CREATE TABLE IF NOT EXISTS `constante` (
+DROP TABLE IF EXISTS `constantes`;
+CREATE TABLE IF NOT EXISTS `constantes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `startPremierTour` date NOT NULL,
-  `endPremierTour` date NOT NULL,
   `startSecondTour` date NOT NULL,
   `endSecondTour` date NOT NULL,
   PRIMARY KEY (`id`)
