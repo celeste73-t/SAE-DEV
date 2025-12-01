@@ -44,8 +44,5 @@ switch ($page) {
     // autres routes...
     default:
         echo "404 - Page non trouvée";
-        echo '<br>';
-        echo password_hash("test", PASSWORD_DEFAULT);;
-
     }
 ?>
