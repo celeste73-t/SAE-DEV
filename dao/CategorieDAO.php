@@ -15,7 +15,17 @@ class CategorieDAO {
         $this->db = ConnectionBDD::connect();
     }
     
-    
+    public function getAllCategories(): array {
+        try {
+            $query = $this->db->query("SELECT * FROM categorie");
+            $categories = $query->fetchAll(PDO::FETCH_ASSOC); 
+            return $categories;
+            
+        } catch (PDOException $e) {
+            error_log("Erreur dans CategorieDAO::getAllCategories : " . $e->getMessage());
+            return [];
+        }
+    }
     
 }
 ?>
