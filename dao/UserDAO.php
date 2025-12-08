@@ -50,7 +50,7 @@ class UserDAO {
         }
     }
 
-    public function save(User $user): bool {
+    public function newUser(User $user): bool {
         try {
             $query = "INSERT INTO Utilisateur (nom, email, motDePasse, userType) VALUES (:nom, :email, :mdp, :type)";
             $stmt = $this->db->prepare($query);
