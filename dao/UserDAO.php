@@ -49,5 +49,29 @@ class UserDAO {
             return null;
         }
     }
+
+    public function save(User $user): bool {
+        try {
+            $query = "INSERT INTO Utilisateur (nom, email, motDePasse, userType) VALUES (:nom, :email, :mdp, :type)";
+            $stmt = $this->db->prepare($query);
+            
+            $nom = $user->getNom();
+            $email = $user->getEmail();
+            $mdp = $user->getPassword();
+            // Utilise la valeur raw de l'Enum pour l'insertion en BDD (PHP 8.1+)
+            $userType = $user->getRole()->value; 
+            
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':mdp', $mdp);
+            $stmt->bindParam(':type', $userType);
+            
+            return $stmt->execute();
+            
+        } catch (PDOException $e) {
+            error_log("Erreur dans UserDAO::save : " . $e->getMessage());
+            return false;
+        }
+    }
 }
 ?>
