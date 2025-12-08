@@ -15,6 +15,7 @@ class ConnectionBDD {
      */
     public static function connect(): PDO {
         try {
+            # TODO: Faire Une connexion sécuriser
             $dsn = 'mysql:host=localhost;dbname=bdd_sae;charset=utf8;port=3306';
             $username = 'root';
             $password = ''; 

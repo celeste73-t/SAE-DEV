@@ -12,7 +12,4 @@ class PageCandidat extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageCandidat("Candidat");
 ?>

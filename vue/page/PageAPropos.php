@@ -13,7 +13,4 @@ class PageAPropos extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageAPropos("À Propos");
 ?>

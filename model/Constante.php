@@ -2,11 +2,10 @@
 namespace model;
 
 class Constante {
-    private int $id
-    private Date $startPremierTour
-    private Date $endPremierTour
-    private Date $startSecondTour
-    private Date $endSecondTour
+    private int $id;
+    private Date $startPremierTour;
+    private Date $startSecondTour;
+    private Date $endSecondTour;
 
     public function __construct(
         int $id,
@@ -17,7 +16,6 @@ class Constante {
     ) {
         $this->id = $id;
         $this->startPremierTour = $startPremierTour;
-        $this->endPremierTour = $endPremierTour;
         $this->startSecondTour = $startSecondTour;
         $this->endSecondTour = $endSecondTour;
     }
@@ -29,10 +27,6 @@ class Constante {
 
     public function getStartPremierTour(): int {
         return $this->startPremierTour = $startPremierTour;
-    }
-
-    public function getEndPremierTour(): int {
-        return $this->endPremierTour = $endPremierTour;
     }
 
     public function getStartSecondTour(): int {

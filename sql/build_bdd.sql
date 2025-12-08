@@ -18,10 +18,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `bdd_celeste`
+-- Base de données : `bdd_sae`
 --
+CREATE DATABASE IF NOT EXISTS bdd_sae;
+USE bdd_sae;
 
 -- --------------------------------------------------------
+
+--
+-- Structure de la table `categorie`
+--
+
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `motDePasse` VARCHAR(255) NOT NULL,
+  `userType` ENUM('votant', 'administrateur', 'candidat') NOT NULL,
+  UNIQUE INDEX (`email` ASC) VISIBLE,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 --
 -- Structure de la table `categorie`
@@ -96,11 +113,10 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
 -- Structure de la table `constante`
 --
 
-DROP TABLE IF EXISTS `constante`;
-CREATE TABLE IF NOT EXISTS `constante` (
+DROP TABLE IF EXISTS `constantes`;
+CREATE TABLE IF NOT EXISTS `constantes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `startPremierTour` date NOT NULL,
-  `endPremierTour` date NOT NULL,
   `startSecondTour` date NOT NULL,
   `endSecondTour` date NOT NULL,
   PRIMARY KEY (`id`)

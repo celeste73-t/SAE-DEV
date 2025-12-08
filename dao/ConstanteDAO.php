@@ -1,10 +1,11 @@
 <?php
 namespace dao;
 
+require_once __DIR__ . '/../service/ConnectionBDD.php';
+
 use service\ConnectionBDD;
 use PDO;
 use PDOException;
-
 
 class ConstanteDAO {
     private PDO $db;
@@ -18,19 +19,15 @@ class ConstanteDAO {
      * Récupère toutes les données de la table 'constante'.
      * @return array Les données de la table ou un tableau vide.
      */
-    public function getConstanteDate(): array {
+    public function readAll(): array {
         try {
-            // Utilisation de query() car la requête ne contient pas de variables.
-            $query = $this->db->query("SELECT * FROM constante");
-            $constante_date = $query->fetchAll(PDO::FETCH_ASSOC); 
-            return $constante_date;
-            
+            $query = $this->db->query("SELECT * FROM constantes");
+            $constantes = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $constantes ?: []; // retourne tableau vide si rien
         } catch (PDOException $e) {
-            error_log("Erreur dans ConstanteDAO::getConstanteDate : " . $e->getMessage());
+            error_log("Erreur dans ConstanteDAO::readAll : " . $e->getMessage());
             return [];
         }
     }
-
-    
 }
 ?>

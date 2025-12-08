@@ -12,7 +12,4 @@ class PageVote extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageVote("Vote");
 ?>

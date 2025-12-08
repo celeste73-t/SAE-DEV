@@ -12,7 +12,4 @@ class PageModeration extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageModeration("Moderation");
 ?>

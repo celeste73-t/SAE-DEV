@@ -12,7 +12,4 @@ class PageProposition extends Page {
         <?php
     }
 }
-
-// Utilisation
-$page = new PageProposition("Proposition");
 ?>
