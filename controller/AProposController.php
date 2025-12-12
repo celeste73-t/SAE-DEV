@@ -10,4 +10,4 @@ class AProposController {
         $page->render(); // le contrôleur déclenche l’affichage
     }
 }
-?>
+ 

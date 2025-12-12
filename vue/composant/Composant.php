@@ -8,4 +8,3 @@ abstract class Composant {
 
     abstract public function render();
 }
-?>

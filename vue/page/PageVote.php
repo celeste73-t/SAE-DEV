@@ -12,4 +12,3 @@ class PageVote extends Page {
         <?php
     }
 }
-?>

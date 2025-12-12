@@ -52,4 +52,3 @@ class Post {
         $this->auteur = $auteur;
     }
 }
-?>

@@ -12,4 +12,3 @@ class Footer extends Composant {
         <?php
     }
 }
-?>

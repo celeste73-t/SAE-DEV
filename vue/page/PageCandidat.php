@@ -12,4 +12,3 @@ class PageCandidat extends Page {
         <?php
     }
 }
-?>

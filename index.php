@@ -45,4 +45,3 @@ switch ($page) {
     default:
         echo "404 - Page non trouvée";
     }
-?>

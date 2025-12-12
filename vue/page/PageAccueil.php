@@ -13,5 +13,3 @@ class PageAccueil extends Page {
         <?php
     }
 }
-
-?>

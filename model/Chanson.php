@@ -68,4 +68,3 @@ class Chanson {
         $this->compteurVote2 = $compteurVote2;
     }
 }
-?>

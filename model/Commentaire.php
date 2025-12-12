@@ -58,4 +58,3 @@ class Commentaire {
         $this->parentCommentaire = $parentCommentaire;
     }
 }
-?>

@@ -3,5 +3,4 @@ namespace controller;
 
 class CartePropositionController {
     
-}
-?>
+	}

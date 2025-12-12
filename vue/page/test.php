@@ -24,5 +24,3 @@ try {
     // Cela attrape les erreurs PDO non gérées ou autres exceptions
     echo "**ERREUR FATALE : La connexion ou la requête a échoué.** Détails : " . $e->getMessage();
 }
-
-?>
