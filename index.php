@@ -4,12 +4,14 @@ require_once __DIR__ . '/controller/AccueilController.php';
 require_once __DIR__ . '/controller/AProposController.php';
 require_once __DIR__ . '/controller/ConnexionController.php';
 require_once __DIR__ . '/controller/ContactController.php';
+require_once __DIR__ . '/controller/InscriptionController.php';
 
 
 use controller\AccueilController;
 use controller\AProposController;
 use controller\ConnexionController;
 use controller\ContactController;
+use controller\InscriptionController;
 
 
 // La page par defaut est la page d'acceuil
@@ -40,6 +42,14 @@ switch ($page) {
     case 'contact':
         $controller = new ContactController();
         $controller->index();
+        break;
+    case 'inscription':
+        $controller = new InscriptionController();
+        if ($action === "register") {
+            $controller->register();
+        } else {
+            $controller->index();
+        }
         break;
     // autres routes...
     default:

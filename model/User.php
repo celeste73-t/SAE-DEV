@@ -6,13 +6,13 @@ require_once __DIR__ . '/../service/Enum.php';
 use service\UserRole;
 
 class User {
-    private int $id;
+    private ?int $id;
     private string $email;
     private string $nom;
     private string $password;
     private UserRole $role;
 
-    public function __construct(int $id, string $email, string $nom, string $password, UserRole $role) {
+    public function __construct(?int $id, string $email, string $nom, string $password, UserRole $role) {
         $this->id = $id;
         $this->email = $email;
         $this->nom = $nom;
