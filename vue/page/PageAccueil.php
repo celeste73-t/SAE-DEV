@@ -48,5 +48,3 @@ class PageAccueil extends Page {
         echo "<h3>Catégories de vote :</h3>";
     }
 }
-
-?>

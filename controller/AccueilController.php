@@ -18,4 +18,4 @@ class AccueilController {
         $page->render(); // le contrôleur déclenche l’affichage
     }
 }
-?>
+ 

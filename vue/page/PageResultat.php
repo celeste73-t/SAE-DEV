@@ -12,4 +12,3 @@ class PageResultat extends Page {
         <?php
     }
 }
-?>

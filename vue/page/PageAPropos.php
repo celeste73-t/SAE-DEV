@@ -13,4 +13,3 @@ class PageAPropos extends Page {
         <?php
     }
 }
-?>

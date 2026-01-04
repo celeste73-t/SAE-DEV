@@ -8,14 +8,14 @@ use service\UserRole;
 class User {
     private int $id;
     private string $email;
-    private string $pseudo;
+    private string $nom;
     private string $password;
     private UserRole $role;
 
-    public function __construct(int $id, string $email, string $pseudo, string $password, UserRole $role) {
+    public function __construct(int $id, string $email, string $nom, string $password, UserRole $role) {
         $this->id = $id;
         $this->email = $email;
-        $this->pseudo = $pseudo;
+        $this->nom = $nom;
         $this->password = $password;
         $this->role = $role;
     }
@@ -29,8 +29,8 @@ class User {
         return $this->email;
     }
 
-    public function getPseudo(): string {
-        return $this->pseudo;
+    public function getNom(): string {
+        return $this->nom;
     }
 
     public function getPassword(): string {
@@ -46,8 +46,8 @@ class User {
         $this->email = $email;
     }
 
-    public function setPseudo(string $pseudo): void {
-        $this->pseudo = $pseudo;
+    public function setPseudo(string $nom): void {
+        $this->nom = $nom;
     }
 
     public function setPassword(string $password): void {
@@ -57,5 +57,21 @@ class User {
     public function setRole(UserRole $role): void {
         $this->role = $role;
     }
+
+    public static function fromDatabaseArray(array $data): self {
+        $role = match($data['userType']) {
+            'votant' => UserRole::User,
+            'candidat' => UserRole::Candidat,
+            'administrateur' => UserRole::Admin,
+            default => UserRole::Visiteur
+        };
+
+        return new self(
+            (int)$data['id'],
+            $data['email'],
+            $data['nom'],
+            $data['motDePasse'],
+            $role
+        );
+    }
 }
-?>

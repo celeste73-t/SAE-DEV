@@ -1,11 +1,11 @@
 <?php
 namespace service;
 
-enum UserRole: int {
-    case Visiteur = 0;
-    case User = 1;
-    case Candidat = 2;
-    case Admin = 3;
+enum UserRole: string {
+    case Visiteur = 'visiteur';
+    case User = 'votant';
+    case Candidat = 'candidat';
+    case Admin = 'administrateur';
 }
 
 enum PhaseVote: int {

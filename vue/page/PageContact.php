@@ -13,4 +13,3 @@ class PageContact extends Page {
         <?php
     }
 }
-?>

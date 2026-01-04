@@ -12,4 +12,3 @@ class PageModeration extends Page {
         <?php
     }
 }
-?>

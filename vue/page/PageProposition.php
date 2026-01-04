@@ -12,4 +12,3 @@ class PageProposition extends Page {
         <?php
     }
 }
-?>

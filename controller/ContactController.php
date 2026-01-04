@@ -10,4 +10,4 @@ class ContactController {
         $page->render(); // le contrôleur déclenche l’affichage
     }
 }
-?>
+ 

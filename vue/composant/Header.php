@@ -31,4 +31,3 @@ class Header extends Composant {
         <?php
     }
 }
-?>

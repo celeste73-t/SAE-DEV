@@ -4,4 +4,3 @@ namespace controller;
 class ModerationController {
     
 }
-?>
