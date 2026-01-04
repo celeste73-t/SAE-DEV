@@ -23,11 +23,13 @@ abstract class Page {
     }
 
     protected function renderHeader() {
-        new Header();
+        $header = new Header();
+        $header->render();
     }
 
     protected function renderFooter() {
-        new Footer();
+        $footer = new Footer();
+        $footer->render();
     }
  
     abstract protected function renderContent();
