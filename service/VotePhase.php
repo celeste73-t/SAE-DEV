@@ -9,7 +9,7 @@ class VotePhase {
     // Utilise ConstanteDAO pour récupérer les dates
     // Compare à la date actuelle
     // Renvoie la phase de vote
-    public function getPhaseVote(){
+    public static function getPhaseVote(){
         $dao = new ConstanteDAO();
         $constante = $dao->readAll();
 
@@ -26,9 +26,9 @@ class VotePhase {
         $endSecondTour = new \DateTime($constante["endSecondTour"]);
 
         error_log("Now = " . $now->format('Y-m-d H:i:s'));
-error_log("Premier tour = " . $startPremierTour->format('Y-m-d H:i:s'));
-error_log("Second tour = " . $startSecondTour->format('Y-m-d H:i:s'));
-error_log("Fin second tour = " . $endSecondTour->format('Y-m-d H:i:s'));
+        error_log("Premier tour = " . $startPremierTour->format('Y-m-d H:i:s'));
+        error_log("Second tour = " . $startSecondTour->format('Y-m-d H:i:s'));
+        error_log("Fin second tour = " . $endSecondTour->format('Y-m-d H:i:s'));
 
         if($now < $startPremierTour) {
             return PhaseVote::PreVote;

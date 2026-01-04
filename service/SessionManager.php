@@ -30,30 +30,14 @@ class SessionManager {
             $_SESSION['user'] = UserRole::Visiteur->value;
         }
         $this->userRole = UserRole::from($_SESSION['user']);
-
-        if (!isset($_SESSION['phaseVote'])) {
-            $votePhase = new VotePhase();
-            $_SESSION['phaseVote'] = $votePhase->getPhaseVote()->value;
-        }
-        $this->phaseVote = PhaseVote::from($_SESSION['phaseVote']);
     }
 
     public function getUserRole(): UserRole {
         return $this->userRole;
     }
 
-    public function getPhaseVote(): PhaseVote {
-        return $this->phaseVote;
-    }
-
     public function setUserRole(UserRole $role): void {
         $this->userRole = $role;
         $_SESSION['user'] = $role->value;
     }
-
-    public function setPhaseVote(PhaseVote $phase): void {
-        $this->phaseVote = $phase;
-        $_SESSION['phaseVote'] = $phase->value;
-    }
-
 }

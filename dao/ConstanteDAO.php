@@ -22,7 +22,7 @@ class ConstanteDAO {
     public function readAll(): array {
         try {
             $query = $this->db->query("SELECT * FROM constantes");
-            $constantes = $query->fetchAll(PDO::FETCH_ASSOC);
+            $constantes = $query->fetch(PDO::FETCH_ASSOC);
             return $constantes ?: []; // retourne tableau vide si rien
         } catch (PDOException $e) {
             error_log("Erreur dans ConstanteDAO::readAll : " . $e->getMessage());
