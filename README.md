@@ -18,8 +18,8 @@ Ce projet est une **application de vote musical** développée dans le cadre d�
 
 ### Organisation du code
 - `controller/` → Contrôleurs pour orchestrer les actions (vote, affichage, résultats).
-- `model/` → Classes métiers pour la persistance des données.
 - `dao/` → Classes DAO Récupérent les données en base.
+- `model/` → Classes métiers pour la persistance des données.
 - `service/` → Logique métier complémentaire (validation, calcul des résultats).
+- `sql/` → Fichier Sql pour maintenir la base de donnée à jour.
 - `vue/` → Templates et pages HTML/CSS.
-- `class/` → Classes utilitaires et constantes.
