@@ -25,6 +25,11 @@ class VotePhase {
         $startSecondTour = new \DateTime($constante["startSecondTour"]);
         $endSecondTour = new \DateTime($constante["endSecondTour"]);
 
+        error_log("Now = " . $now->format('Y-m-d H:i:s'));
+error_log("Premier tour = " . $startPremierTour->format('Y-m-d H:i:s'));
+error_log("Second tour = " . $startSecondTour->format('Y-m-d H:i:s'));
+error_log("Fin second tour = " . $endSecondTour->format('Y-m-d H:i:s'));
+
         if($now < $startPremierTour) {
             return PhaseVote::PreVote;
         } elseif($now < $startSecondTour) {

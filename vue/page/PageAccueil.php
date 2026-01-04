@@ -18,7 +18,6 @@ class PageAccueil extends Page {
         ?>
         <section class="content">
         <?php
-        echo "<h1>" . htmlspecialchars($this->phas) . "</h1>";
         switch ($this->phase) {
             case PhaseVote::PreVote:
                 echo "<h2>Bienvenue sur Toptracks</h2>";

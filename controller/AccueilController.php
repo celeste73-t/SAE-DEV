@@ -12,7 +12,7 @@ use service\PhaseVote;
 class AccueilController {
     public function index() {
         $session = SessionManager::getInstance();
-        $phase = $session->getPhaseVote() ?? 'preVote';
+        $phase = $session->getPhaseVote();// ?? 'preVote';
 
         $page = new PageAccueil("Accueil", $phase);
         $page->render(); // le contrôleur déclenche l’affichage
