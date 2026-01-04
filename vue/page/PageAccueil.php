@@ -4,9 +4,11 @@ namespace vue\page;
 require_once __DIR__ . '/Page.php';
 require_once __DIR__ . '/../../service/Enum.php';
 require_once __DIR__ . '/../../model/Categorie.php';
+require_once __DIR__ . '/../composant/CarteCategorie.php';
 
 use service\PhaseVote;
 use model\Categorie;
+use vue\composant\CarteCategorie;
 
 class PageAccueil extends Page {
     private PhaseVote $phase;
@@ -50,7 +52,8 @@ class PageAccueil extends Page {
 
     private function AfficherCategories() {
         foreach ($this->categories as $categorie) {
-            echo "<h3>" . $categorie->getNom() . "</h3>";
+            $carte = new CarteCategorie();
+            $carte->render($this->phase, $categorie);
         }
     }
 }
