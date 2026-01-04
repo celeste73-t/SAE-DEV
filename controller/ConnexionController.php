@@ -13,10 +13,9 @@ use service\UserRole;
 
 class ConnexionController {
     private $errorMessage = null;
-    private $successMessage = null;
 
     public function index() {
-        $page = new PageConnexion("Connexion", $this->errorMessage, $this->successMessage);
+        $page = new PageConnexion("Connexion", $this->errorMessage);
         $page->render(); // le contrôleur déclenche l’affichage
     }
 

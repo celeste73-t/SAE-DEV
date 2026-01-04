@@ -7,9 +7,8 @@ class PageConnexion extends Page {
     private $errorMessage;
     private $successMessage;
 
-    public function __construct($title = "Connexion", $errorMessage = null, $successMessage = null) {
+    public function __construct($title = "Connexion", $errorMessage = null) {
         $this->errorMessage = $errorMessage;
-        $this->successMessage = $successMessage;
         parent::__construct($title);
     }
 
@@ -22,11 +21,7 @@ class PageConnexion extends Page {
                     <?php echo htmlspecialchars($this->errorMessage); ?>
                 </div>
             <?php endif; ?>
-            <?php if ($this->successMessage): ?>
-                <div class="success-message">
-                    <?php echo htmlspecialchars($this->successMessage); ?>
-                </div>
-            <?php endif; ?>
+
             <form action="index.php?page=connexion&action=login" method="post">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email">
