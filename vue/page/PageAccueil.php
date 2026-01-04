@@ -3,15 +3,19 @@ namespace vue\page;
 
 require_once __DIR__ . '/Page.php';
 require_once __DIR__ . '/../../service/Enum.php';
+require_once __DIR__ . '/../../model/Categorie.php';
 
 use service\PhaseVote;
+use model\Categorie;
 
 class PageAccueil extends Page {
     private PhaseVote $phase;
+    private array $categories;
 
-    public function __construct($title, $phase) {
+    public function __construct($title, $phase, $categories) {
         parent::__construct($title);
         $this->phase = $phase;
+        $this->categories = $categories;
     }
 
     protected function renderContent() {
@@ -45,6 +49,8 @@ class PageAccueil extends Page {
     }
 
     private function AfficherCategories() {
-        echo "<h3>Catégories de vote :</h3>";
+        foreach ($this->categories as $categorie) {
+            echo "<h3>" . $categorie->getNom() . "</h3>";
+        }
     }
 }

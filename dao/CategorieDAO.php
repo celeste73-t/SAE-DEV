@@ -2,8 +2,10 @@
 namespace dao;
 
 require_once __DIR__ . '/../service/ConnectionBDD.php';
+require_once __DIR__ . '/../model/Categorie.php';
 
 use service\ConnectionBDD;
+use model\Categorie;
 use PDO;
 use PDOException;
 
@@ -18,7 +20,11 @@ class CategorieDAO {
     public function getAllCategories(): array {
         try {
             $query = $this->db->query("SELECT * FROM categorie");
-            $categories = $query->fetchAll(PDO::FETCH_ASSOC); 
+            $rows = $query->fetchAll(PDO::FETCH_ASSOC); 
+            
+            foreach ($rows as $row) { 
+                $categories[] = Categorie::fromDatabaseArray($row); 
+            } 
             return $categories;
             
         } catch (PDOException $e) {

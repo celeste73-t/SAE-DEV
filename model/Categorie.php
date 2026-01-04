@@ -31,16 +31,12 @@ class Categorie {
         return $this->image;
     }
 
-    // Setters
-    public function setNom(string $nom): void {
-        $this->nom = $nom;
-    }
-
-    public function setDescription(?string $description): void {
-        $this->description = $description;
-    }
-
-    public function setImage(?string $image): void {
-        $this->image = $image;
+    public static function fromDatabaseArray(array $data): Categorie { 
+        return new Categorie( 
+            $data['id'], 
+            $data['nom'], 
+            $data['description'] ?? null, 
+            $data['image'] ?? null 
+        ); 
     }
 }
