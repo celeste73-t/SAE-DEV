@@ -5,6 +5,7 @@ require_once __DIR__ . '/controller/AProposController.php';
 require_once __DIR__ . '/controller/ConnexionController.php';
 require_once __DIR__ . '/controller/ContactController.php';
 require_once __DIR__ . '/controller/InscriptionController.php';
+require_once __DIR__ . '/controller/PropositionController.php';
 
 
 use controller\AccueilController;
@@ -12,6 +13,7 @@ use controller\AProposController;
 use controller\ConnexionController;
 use controller\ContactController;
 use controller\InscriptionController;
+use controller\PropositionController;
 
 
 // La page par defaut est la page d'acceuil
@@ -50,6 +52,11 @@ switch ($page) {
         } else {
             $controller->index();
         }
+        break;
+    case 'proposition':
+        $categorie = $_GET['categorie'] ?? null;
+        $controller = new PropositionController();
+        $controller->index($categorie);
         break;
     // autres routes...
     default:
