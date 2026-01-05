@@ -26,7 +26,7 @@ USE bdd_sae;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Structure de la table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `nom` varchar(45) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `type` ENUM('track', 'album', 'artist') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nom` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

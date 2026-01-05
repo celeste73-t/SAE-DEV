@@ -15,4 +15,9 @@ enum PhaseVote: int {
     case Resultats = 3;
 }
 
+enum CategorieType: string {
+    case Track = 'track';
+    case Album = 'album';
+    case Artist = 'artist';
+}
 ?>
