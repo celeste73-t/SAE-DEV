@@ -1,4 +1,4 @@
-# Appli de Vote Musical
+# TopTracks Appli de Vote Musical
 
 ## Description du projet
 Ce projet est une **application de vote musical** développée dans le cadre d’un **projet tutoré**.  
