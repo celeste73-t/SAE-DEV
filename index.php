@@ -6,6 +6,7 @@ require_once __DIR__ . '/controller/ConnexionController.php';
 require_once __DIR__ . '/controller/ContactController.php';
 require_once __DIR__ . '/controller/InscriptionController.php';
 require_once __DIR__ . '/controller/PropositionController.php';
+require_once __DIR__ . '/controller/VoteController.php';
 
 
 use controller\AccueilController;
@@ -14,6 +15,7 @@ use controller\ConnexionController;
 use controller\ContactController;
 use controller\InscriptionController;
 use controller\PropositionController;
+use controller\VoteController;
 
 
 // La page par defaut est la page d'acceuil
@@ -56,6 +58,11 @@ switch ($page) {
     case 'proposition':
         $categorie = $_GET['categorie'] ?? null;
         $controller = new PropositionController();
+        $controller->index($categorie);
+        break;
+    case 'vote':
+        $categorie = $_GET['categorie'] ?? null;
+        $controller = new VoteController();
         $controller->index($categorie);
         break;
     // autres routes...
