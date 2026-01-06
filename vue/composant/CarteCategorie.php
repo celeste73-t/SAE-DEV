@@ -8,7 +8,7 @@ use service\PhaseVote;
 
 class CarteCategorie {
     public function render($phase, $categorie) {
-        echo '<a href="' . $this->getUrl($phase, $categorie) . '" class="carte-categorie">';
+        echo '<a href="' . $this->getUrl($phase, $categorie) . '" class="carte">';
         ?>
             <h3><?php echo $categorie->getNom(); ?></h3>
             <p><?php echo $categorie->getDescription(); ?></p>

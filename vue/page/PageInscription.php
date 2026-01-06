@@ -14,7 +14,7 @@ class PageInscription extends Page {
 
     protected function renderContent() {
         ?>
-        <section class="content">
+        <section class="content connexion">
             <h2>Inscription</h2>
             <?php if ($this->errorMessage): ?>
                 <div class="error-message">
