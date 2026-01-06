@@ -8,12 +8,10 @@ use vue\page\PageProposition;
 use dao\CategorieDAO;
 
 class PropositionController {
-    private $categorie;
-
     public function index($categorieId) {
         $categorieDAO = new CategorieDAO();
-        $this->categorie = $categorieDAO->findById($categorieId);
-        $page = new PageProposition("Propositions");
-        $page->render($this->categorie); // le contrôleur déclenche l’affichage
+        $categorie = $categorieDAO->findById($categorieId);
+        $page = new PageProposition("Propositions", $categorie);
+        $page->render(); // le contrôleur déclenche l’affichage
     }
 }
