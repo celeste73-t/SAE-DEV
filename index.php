@@ -17,6 +17,7 @@ use controller\InscriptionController;
 use controller\PropositionController;
 use controller\VoteController;
 
+session_start();
 
 // La page par defaut est la page d'acceuil
 $page = $_GET['page'] ?? 'accueil';
@@ -56,9 +57,14 @@ switch ($page) {
         }
         break;
     case 'proposition':
-        $categorie = $_GET['categorie'] ?? null;
         $controller = new PropositionController();
-        $controller->index($categorie);
+        if ($action === "search") {
+            $query = $_GET['q'] ?? null;
+            $controller->search($query);
+        } else {
+            $categorie = $_GET['categorie'] ?? null;
+            $controller->index($categorie);
+        }
         break;
     case 'vote':
         $categorie = $_GET['categorie'] ?? null;

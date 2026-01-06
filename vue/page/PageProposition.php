@@ -17,6 +17,9 @@ class PageProposition extends Page {
             <h3>Proposition</h3>
             <h4>Catégorie sélectionnée : <?php echo htmlspecialchars($this->categorie->getNom()); ?></h4>
             <p><?php echo htmlspecialchars($this->categorie->getDescription()); ?></p>
+            <input type="text" id="search" placeholder="Rechercher...">
+            <pre id="results"></pre> <!-- pre pour afficher le JSON brut -->
+            
         </section>
         <?php
     }

@@ -9,5 +9,6 @@ class ApiAcces {
         if ($response === false) {
             return '{"data":[]}';
         }
+        return $response;
     }
 }

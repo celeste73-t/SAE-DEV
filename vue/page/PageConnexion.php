@@ -28,7 +28,6 @@ class PageConnexion extends Page {
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" id="password">
                 <button type="submit" class="btn-submit">Se connecter</button>
-                </form>
             </form>
             <a href="index.php?page=inscription">S'inscrire</a>
         </section>

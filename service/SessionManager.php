@@ -22,10 +22,6 @@ class SessionManager {
     }
 
     protected function initSession() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
         if (!isset($_SESSION['user'])) {
             $_SESSION['user'] = UserRole::Visiteur->value;
         }
