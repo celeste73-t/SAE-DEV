@@ -29,7 +29,6 @@ USE bdd_sae;
 -- Structure de la table `utilisateur`
 --
 
-DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
@@ -44,7 +43,6 @@ ENGINE = InnoDB;
 -- Structure de la table `categorie`
 --
 
-DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
@@ -61,7 +59,6 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 -- Structure de la table `chanson`
 --
 
-DROP TABLE IF EXISTS `chanson`;
 CREATE TABLE IF NOT EXISTS `chanson` (
   `chansonId` int NOT NULL,
   `Titre` varchar(45) DEFAULT NULL,
@@ -80,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `chanson` (
 -- Structure de la table `chanson_has_genre`
 --
 
-DROP TABLE IF EXISTS `chanson_has_genre`;
 CREATE TABLE IF NOT EXISTS `chanson_has_genre` (
   `chanson_chansonId` int NOT NULL,
   `Genre_idGenre` int NOT NULL,
@@ -95,7 +91,6 @@ CREATE TABLE IF NOT EXISTS `chanson_has_genre` (
 -- Structure de la table `commentaire`
 --
 
-DROP TABLE IF EXISTS `commentaire`;
 CREATE TABLE IF NOT EXISTS `commentaire` (
   `id` int NOT NULL AUTO_INCREMENT,
   `contenu` text NOT NULL,
@@ -114,7 +109,6 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
 -- Structure de la table `constante`
 --
 
-DROP TABLE IF EXISTS `constantes`;
 CREATE TABLE IF NOT EXISTS `constantes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `startPremierTour` date NOT NULL,
@@ -129,9 +123,22 @@ CREATE TABLE IF NOT EXISTS `constantes` (
 -- Structure de la table `genre`
 --
 
-DROP TABLE IF EXISTS `genre`;
 CREATE TABLE IF NOT EXISTS `genre` (
   `idGenre` int NOT NULL,
   `nomDuGenre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idGenre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+--
+-- Structure de la table `user_categorie_status`
+--
+
+CREATE TABLE IF NOT EXISTS `user_categorie_status` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `utilisateurId` int NOT NULL,
+  `categorieId` int NOT NULL,
+  `aPropose` boolean DEFAULT FALSE,
+  `aVote` boolean DEFAULT FALSE,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
