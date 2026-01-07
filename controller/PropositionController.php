@@ -4,16 +4,12 @@ namespace controller;
 require_once __DIR__ . '/../vue/page/PageProposition.php';
 require_once __DIR__ . '/../dao/CategorieDAO.php';
 require_once __DIR__ . '/../service/ApiAcces.php';
-require_once __DIR__ . '/../model/Artist.php';
-require_once __DIR__ . '/../model/Album.php';
-require_once __DIR__ . '/../model/Track.php';
+require_once __DIR__ . '/../service/Enum.php';
 
 use vue\page\PageProposition;
 use dao\CategorieDAO;
 use service\ApiAcces;
-use model\Artist;
-use model\Album;
-use model\Track;
+use service\CategorieType;
 
 class PropositionController {
 
@@ -39,46 +35,46 @@ class PropositionController {
         $json = ApiAcces::search($categorie->getType()->value, $query);
         $data = json_decode($json, true);
 
-        $results = [];
-
-        if (isset($data['data'])) {
-            foreach ($data['data'] as $t) {
-
-                $artist = new \model\Artist(
-                    $t['artist']['name'] ?? "Inconnu",
-                    $t['artist']['picture'] ?? ""
-                );
-
-                $album = new \model\Album(
-                    $t['album']['title'] ?? "Sans titre",
-                    $artist,
-                    $t['album']['cover'] ?? ""
-                );
-
-                $track = new \model\Track(
-                    $t['title'],
-                    $artist,
-                    $album
-                );
-
-                $results[] = $track;
-            }
+        if (!isset($data['data'])) { 
+            echo json_encode([]); 
+            exit; 
         }
 
-        echo json_encode(array_map(function($track) {
-            return [
-                "titre" => $track->getTitre(),
-                "artiste" => [
-                    "nom" => $track->getArtiste()->getNom(),
-                    "image" => $track->getArtiste()->getImage()
-                ],
-                "album" => [
-                    "titre" => $track->getAlbum()->getTitre(),
-                    "image" => $track->getAlbum()->getImage()
-                ]
-            ];
-        }, $results));
-
+        foreach ($data['data'] as $t) {
+            switch ($categorie->getType()) {
+                case CategorieType::Track:
+                    $results[] = [
+                        "type" => "track",
+                        "id" => $t['id'],
+                        "titre" => $t['title'],
+                        "artiste" => $t['artist']['name'],
+                        "image" => $t['album']['cover']
+                    ];
+                    break;
+                case CategorieType::Album:
+                    $results[] = [
+                        "type" => "album",
+                        "id" => $t['id'],
+                        "titre" => $t['title'],
+                        "artiste" => $t['artist']['name'],
+                        "image" => $t['cover']
+                    ];
+                    break;
+                case CategorieType::Artist:
+                    $results[] = [
+                        "type" => "artist",
+                        "id" => $t['id'],
+                        "titre" => $t['name'],
+                        "artiste" => "",
+                        "image" => $t['picture']
+                    ];
+                    break;
+                default:
+                    $results = [];
+                    break;
+            }
+        }
+        echo json_encode($results);
         exit;
     }
 

@@ -10,13 +10,13 @@ function callSearchTimed(params) {
     clearTimeout(timer);
 
     timer = setTimeout(search, 300);
-
 }
 
 function search() {
     let q = input.value;
 
     if (q.length < 2) {
+        results.innerHTML = "";
         return;
     }
 
@@ -24,11 +24,11 @@ function search() {
         results.innerHTML = "";
         data.forEach(item => {
             results.innerHTML += ` 
-            <div class="suggestion"> 
-                <img src="${item.album.image}" width="50"> 
-                <strong>${item.titre}</strong><br> 
-                <em>${item.artiste.nom}</em> 
-            </div> 
+            <div class="suggestion" data-type="${item.type}" data-id="${item.id}">
+                <img src="${item.image}" width="50">
+                <strong>${item.titre}</strong><br>
+                <em>${item.artiste}</em>
+            </div>
             `;
         });
     });
