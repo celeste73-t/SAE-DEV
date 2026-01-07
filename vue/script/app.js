@@ -1,17 +1,35 @@
-const input = document.getElementById("search"); 
+const input = document.getElementById("search");
 const results = document.getElementById("results");
 
-if (input)
-    input.addEventListener("input", search);
+let timer = null;
 
-function search(params) {
-    let q = input.value; 
-               
-    if (q.length < 2) { 
-        return; 
-    } 
-                
-    fetch("index.php?page=proposition&action=search&q=" + encodeURIComponent(q)) .then(response => response.json()) .then(data => { 
-        results.textContent = JSON.stringify(data, null, 2); 
+if (input)
+    input.addEventListener("input", callSearchTimed);
+
+function callSearchTimed(params) {
+    clearTimeout(timer);
+
+    timer = setTimeout(search, 300);
+
+}
+
+function search() {
+    let q = input.value;
+
+    if (q.length < 2) {
+        return;
+    }
+
+    fetch("index.php?page=proposition&action=search&q=" + encodeURIComponent(q)).then(response => response.json()).then(data => {
+        results.innerHTML = "";
+        data.forEach(item => {
+            results.innerHTML += ` 
+            <div class="suggestion"> 
+                <img src="${item.album.image}" width="50"> 
+                <strong>${item.titre}</strong><br> 
+                <em>${item.artiste.nom}</em> 
+            </div> 
+            `;
+        });
     });
 }
