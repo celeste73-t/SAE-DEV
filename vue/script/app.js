@@ -7,18 +7,20 @@ if (input)
     input.addEventListener("input", callSearchTimed);
 
 function callSearchTimed(params) {
-    clearTimeout(timer);
 
-    timer = setTimeout(search, 300);
-}
-
-function search() {
     let q = input.value;
 
     if (q.length < 2) {
         results.innerHTML = "";
         return;
     }
+    clearTimeout(timer);
+
+    timer = setTimeout(search(q), 300);
+}
+
+function search(q) {
+
 
     fetch("index.php?page=proposition&action=search&q=" + encodeURIComponent(q)).then(response => response.json()).then(data => {
         results.innerHTML = "";
