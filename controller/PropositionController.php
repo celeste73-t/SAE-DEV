@@ -24,9 +24,6 @@ class PropositionController {
     }
 
     public function search($query) {
-        ob_clean();
-        header('Content-Type: application/json; charset=utf-8');
-
         $categorieId = $_SESSION['categorieId'] ?? null;
 
         $categorieDAO = new CategorieDAO();
