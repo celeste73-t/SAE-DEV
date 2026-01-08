@@ -11,8 +11,7 @@ use service\UserRole;
 class Header extends Composant {
     public function render() {
         $session = SessionManager::getInstance();
-        $userRole = $session->getUserRole();
-        $isConnected = $userRole !== UserRole::Visiteur;
+        $isConnected = $session->isLogged();
         ?>
         <header>
             <a href="?page=accueil"><img src="vue/images/logo.png" alt="Logo"></a>

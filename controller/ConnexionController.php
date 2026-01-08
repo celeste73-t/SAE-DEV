@@ -46,7 +46,7 @@ class ConnexionController {
         }
         
         $session = SessionManager::getInstance();
-        $session->setUserRole($user->getRole());
+        $session->setUser($user);
 
         // Redirection vers la page d'accueil
         header('Location: index.php?page=accueil');
