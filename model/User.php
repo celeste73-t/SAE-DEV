@@ -41,23 +41,6 @@ class User {
         return $this->role;
     }
 
-    // Setters
-    public function setEmail(string $email): void {
-        $this->email = $email;
-    }
-
-    public function setPseudo(string $nom): void {
-        $this->nom = $nom;
-    }
-
-    public function setPassword(string $password): void {
-        $this->password = $password;
-    }
-
-    public function setRole(UserRole $role): void {
-        $this->role = $role;
-    }
-
     public static function fromDatabaseArray(array $data): self {
         $role = match($data['userType']) {
             'votant' => UserRole::User,

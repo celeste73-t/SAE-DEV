@@ -3,9 +3,13 @@ namespace controller;
 
 require_once __DIR__ . '/../vue/page/PageValidation.php';
 require_once __DIR__ . '/../dao/CategorieDAO.php';
+require_once __DIR__ . '/../service/SessionManager.php';
+require_once __DIR__ . '/../service/Enum.php';
 
 use vue\page\PageValidation;
 use dao\CategorieDAO;
+use service\SessionManager;
+use service\UserRole;
 
 class ValidationController {
 
@@ -26,8 +30,17 @@ class ValidationController {
     }
 
     public function validate() {
-        // Logique de validation de la proposition
-        // Par exemple, enregistrer la proposition dans la base de données
+        $session = SessionManager::getInstance();
+        if (!$session->isLogged()) {
+            header('Location: index.php?page=connexion');
+            exit;
+        }
+
+        $user = $session->getUser();
+        if ($user->getRole() !== UserRole::User) {
+            header('Location: index.php?page=accueil');
+            exit;
+        }
 
         // Après validation, nettoyer la session
         unset($_SESSION['proposition']);
