@@ -6,7 +6,11 @@ let timer = null;
 if (input)
     input.addEventListener("input", callSearchTimed);
 
-function callSearchTimed(params) {
+if (results) 
+    results.addEventListener("click", openValidation);
+
+
+function callSearchTimed() {
 
     let q = input.value;
 
@@ -16,17 +20,21 @@ function callSearchTimed(params) {
     }
     clearTimeout(timer);
 
-    timer = setTimeout(search(q), 300);
+    timer = setTimeout(() => search(q), 300);
 }
 
 function search(q) {
-
-
     fetch("index.php?page=proposition&action=search&q=" + encodeURIComponent(q)).then(response => response.json()).then(data => {
         results.innerHTML = "";
         data.forEach(item => {
             results.innerHTML += ` 
-            <div class="suggestion" data-type="${item.type}" data-id="${item.id}">
+            <div class="suggestion" 
+                data-type="${item.type}" 
+                data-id="${item.id}"
+                data-titre="${item.titre}"
+                data-artiste="${item.artiste}"
+                data-image="${item.image}">
+
                 <img src="${item.image}" width="50">
                 <strong>${item.titre}</strong><br>
                 <em>${item.artiste}</em>
@@ -35,3 +43,26 @@ function search(q) {
         });
     });
 }
+
+function openValidation(e) { 
+    console.log("test");
+    
+    const item = e.target.closest(".suggestion"); 
+    if (!item) return; 
+    
+    const data = { 
+        type: item.dataset.type, 
+        id: item.dataset.id, 
+        titre: item.dataset.titre, 
+        artiste: item.dataset.artiste, 
+        image: item.dataset.image 
+    };
+    
+    fetch("index.php?page=proposition&action=select", { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(data) 
+    }).then(() => { 
+        window.location.href = "index.php?page=validation"; 
+    }); 
+};

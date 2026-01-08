@@ -7,6 +7,7 @@ require_once __DIR__ . '/controller/ContactController.php';
 require_once __DIR__ . '/controller/InscriptionController.php';
 require_once __DIR__ . '/controller/PropositionController.php';
 require_once __DIR__ . '/controller/VoteController.php';
+require_once __DIR__ . '/controller/ValidationController.php';
 
 
 use controller\AccueilController;
@@ -16,6 +17,7 @@ use controller\ContactController;
 use controller\InscriptionController;
 use controller\PropositionController;
 use controller\VoteController;
+use controller\ValidationController;
 
 session_start();
 
@@ -61,6 +63,8 @@ switch ($page) {
         if ($action === "search") {
             $query = $_GET['q'] ?? null;
             $controller->search($query);
+        } else if ($action === "select") {
+            $controller->select();
         } else {
             $categorie = $_GET['categorie'] ?? null;
             $controller->index($categorie);
@@ -70,6 +74,14 @@ switch ($page) {
         $categorie = $_GET['categorie'] ?? null;
         $controller = new VoteController();
         $controller->index($categorie);
+        break;
+    case 'validation':
+        $controller = new ValidationController();
+        if ($action === "validate") {
+            $controller->validate();
+        } else {
+            $controller->index();
+        }
         break;
     // autres routes...
     default:
