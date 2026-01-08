@@ -15,17 +15,55 @@ class UserCategorieStatusDAO {
         $this->db = ConnectionBDD::connect();
     }
 
-    public function findStatusByUserAndCategorie($userId, $categorieId) {
-        $sql = "SELECT status FROM user_categorie_status WHERE user_id = ? AND categorie_id = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$userId, $categorieId]);
-        return $stmt->fetchColumn();
+    private function findRow($userId, $categorieId) { 
+        $sql = "SELECT * 
+                FROM user_categorie_status 
+                WHERE utilisateurId = ? AND categorieId = ?"; 
+        $stmt = $this->pdo->prepare($sql); 
+        $stmt->execute([$userId, $categorieId]); 
+        return $stmt->fetch(\PDO::FETCH_ASSOC); 
+    } 
+    
+    private function createRow($userId, $categorieId) { 
+        $sql = "INSERT INTO user_categorie_status (utilisateurId, categorieId, aPropose, aVote) 
+                VALUES (?, ?, 0, 0)"; 
+        $stmt = $this->pdo->prepare($sql); 
+        $stmt->execute([$userId, $categorieId]); 
+    } 
+    
+    private function ensureRowExists($userId, $categorieId) { 
+        if (!$this->findRow($userId, $categorieId)) { 
+            $this->createRow($userId, $categorieId); 
+        } 
     }
 
-    public function insert($userId, $categorieId, $status) {
-        $sql = "INSERT INTO user_categorie_status (user_id, categorie_id, status) VALUES (?, ?, ?)";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$userId, $categorieId, $status]);
+    public function getPropositionStatus($userId, $categorieId) { 
+        $this->ensureRowExists($userId, $categorieId); 
+        $row = $this->findRow($userId, $categorieId); 
+        return (bool)$row['aPropose']; 
+    } 
+    
+    public function getVoteStatus($userId, $categorieId) { 
+        $this->ensureRowExists($userId, $categorieId); 
+        $row = $this->findRow($userId, $categorieId); 
+        return (bool)$row['aVote']; 
+    }
+
+    public function setPropositionStatus($userId, $categorieId) { 
+        $this->ensureRowExists($userId, $categorieId); 
+        $sql = "UPDATE user_categorie_status 
+                SET aPropose = 1 
+                WHERE utilisateurId = ? AND categorieId = ?"; 
+        $stmt = $this->pdo->prepare($sql); 
+        $stmt->execute([$userId, $categorieId]); 
+    } 
+    
+    public function setVoteStatus($userId, $categorieId) { 
+        $this->ensureRowExists($userId, $categorieId); 
+        $sql = "UPDATE user_categorie_status 
+                SET aVote = 1 
+                WHERE utilisateurId = ? AND categorieId = ?"; 
+        $stmt = $this->pdo->prepare($sql); 
+        $stmt->execute([$userId, $categorieId]); 
     }
 }
-?>
