@@ -19,7 +19,7 @@ class UserCategorieStatusDAO {
         $sql = "SELECT * 
                 FROM user_categorie_status 
                 WHERE utilisateurId = ? AND categorieId = ?"; 
-        $stmt = $this->pdo->prepare($sql); 
+        $stmt = $this->db->prepare($sql); 
         $stmt->execute([$userId, $categorieId]); 
         return $stmt->fetch(\PDO::FETCH_ASSOC); 
     } 
@@ -27,7 +27,7 @@ class UserCategorieStatusDAO {
     private function createRow($userId, $categorieId) { 
         $sql = "INSERT INTO user_categorie_status (utilisateurId, categorieId, aPropose, aVote) 
                 VALUES (?, ?, 0, 0)"; 
-        $stmt = $this->pdo->prepare($sql); 
+        $stmt = $this->db->prepare($sql); 
         $stmt->execute([$userId, $categorieId]); 
     } 
     
@@ -54,7 +54,7 @@ class UserCategorieStatusDAO {
         $sql = "UPDATE user_categorie_status 
                 SET aPropose = 1 
                 WHERE utilisateurId = ? AND categorieId = ?"; 
-        $stmt = $this->pdo->prepare($sql); 
+        $stmt = $this->db->prepare($sql); 
         $stmt->execute([$userId, $categorieId]); 
     } 
     
@@ -63,7 +63,7 @@ class UserCategorieStatusDAO {
         $sql = "UPDATE user_categorie_status 
                 SET aVote = 1 
                 WHERE utilisateurId = ? AND categorieId = ?"; 
-        $stmt = $this->pdo->prepare($sql); 
+        $stmt = $this->db->prepare($sql); 
         $stmt->execute([$userId, $categorieId]); 
     }
 }
