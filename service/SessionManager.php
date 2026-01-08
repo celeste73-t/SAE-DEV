@@ -27,5 +27,25 @@ class SessionManager {
 
     public function isLogged() { 
         return isset($_SESSION['user']); 
-    } 
+    }
+
+    public function setSuccessMessage(string $message) {
+        $_SESSION['successMessage'] = $message;
+    }
+
+    public function getSuccessMessage(): ?string {
+        $message = $_SESSION['successMessage'] ?? null;
+        unset($_SESSION['successMessage']);
+        return $message;
+    }
+
+    public function setErrorMessage(string $message) {
+        $_SESSION['errorMessage'] = $message;
+    }
+
+    public function getErrorMessage(): ?string {
+        $message = $_SESSION['errorMessage'] ?? null;
+        unset($_SESSION['errorMessage']);
+        return $message;
+    }
 }

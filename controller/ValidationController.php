@@ -32,19 +32,19 @@ class ValidationController {
     public function validate() {
         $session = SessionManager::getInstance();
         if (!$session->isLogged()) {
+            $session->setErrorMessage("Vous devez être connecté pour valider une proposition.");
             header('Location: index.php?page=connexion');
             exit;
         }
 
         $user = $session->getUser();
         if ($user->getRole() !== UserRole::User) {
+            $session->setErrorMessage("Veuillez vous connecter en tant qu'utilisateur pour valider une proposition.");
             header('Location: index.php?page=accueil');
             exit;
         }
 
-        // Après validation, nettoyer la session
-        unset($_SESSION['proposition']);
-        unset($_SESSION['categorieId']);
+        $session->setSuccessMessage("Votre proposition a été prise en compte.");
 
         header('Location: index.php?page=accueil');
         exit();

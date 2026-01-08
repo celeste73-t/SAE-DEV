@@ -31,6 +31,18 @@ abstract class Page {
         $footer = new Footer();
         $footer->render();
     }
+
+    protected function renderMessage() {
+        $session = SessionManager::getInstance();
+        $successMessage = $session->getSuccessMessage();
+        $errorMessage = $session->getErrorMessage();
+        if ($successMessage) {
+            echo '<div class="message success-message">' . htmlspecialchars($successMessage) . '</div>';
+        }
+        if ($errorMessage) {
+            echo '<div class="message error-message">' . htmlspecialchars($errorMessage) . '</div>';
+        }
+    }
  
     abstract protected function renderContent();
 
@@ -54,6 +66,7 @@ abstract class Page {
         <?php
         $this->renderHeader();
         $this->renderContent();
+        $this->renderMessage();
         $this->renderFooter();
         ?>
             </body>
