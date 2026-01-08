@@ -140,5 +140,54 @@ CREATE TABLE IF NOT EXISTS `user_categorie_status` (
   `categorieId` int NOT NULL,
   `aPropose` boolean DEFAULT FALSE,
   `aVote` boolean DEFAULT FALSE,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_user_cat` (`utilisateurId`, `categorieId`),
+  KEY `utilisateurId` (`utilisateurId`),
+  KEY `categorieId` (`categorieId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+--
+-- Structure de la table `proposition_item`
+--
+
+CREATE TABLE IF NOT EXISTS `proposition_item` (
+    `id` int AUTO_INCREMENT,
+    `deezerId` bigint NOT NULL,
+    `titre` varchar(45) NOT NULL,
+    `artist` varchar(45),
+    `image` varchar(255),
+    `type` ENUM('track', 'album', 'artist') NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY unique_item (deezerId, type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+--
+-- Structure de la table `proposition`
+--
+
+CREATE TABLE IF NOT EXISTS `proposition` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `itemId` int NOT NULL,
+  `categorieId` int NOT NULL,
+  `dateProposition` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `itemId` (`itemId`),
+  KEY `categorieId` (`categorieId`),
+  CONSTRAINT `proposition_item_fk` FOREIGN KEY (`itemId`) REFERENCES `proposition_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+--
+-- Structure de la table `vote`
+--
+
+CREATE TABLE IF NOT EXISTS `vote` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `propositionId` int NOT NULL,
+  `dateVote` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `propositionId` (`propositionId`),
+  CONSTRAINT `proposition_vote_fk` FOREIGN KEY (`propositionId`) REFERENCES `proposition` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
