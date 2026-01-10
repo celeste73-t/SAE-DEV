@@ -1,22 +1,11 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../service/ConnectionBDD.php';
 require_once __DIR__ . '/../model/Categorie.php';
 
-use service\ConnectionBDD;
 use model\Categorie;
-use PDO;
-use PDOException;
 
-class CategorieDAO {
-    private PDO $db;
-
-    public function __construct() {
-        // Injection de la dépendance PDO en utilisant la méthode statique connect()
-        $this->db = ConnectionBDD::connect();
-    }
-
+class CategorieDAO extends DAO {
     public function findById(int $id): ?Categorie {
         try {
             // On prépare la requête pour éviter les injections SQL

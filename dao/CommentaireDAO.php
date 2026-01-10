@@ -1,19 +1,6 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../service/ConnectionBDD.php';
+class CommentaireDAO extends DAO {
 
-use service\ConnectionBDD;
-use PDO;
-use PDOException;
-
-class CommentaireDAO {
-    private PDO $db;
-
-    public function __construct() {
-        // Injection de la dépendance PDO en utilisant la méthode statique connect()
-        $this->db = ConnectionBDD::connect();
-    }
-    
 }
-?>
