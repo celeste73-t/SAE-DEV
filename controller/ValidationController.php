@@ -7,6 +7,7 @@ require_once __DIR__ . '/../service/SessionManager.php';
 require_once __DIR__ . '/../service/Enum.php';
 require_once __DIR__ . '/../dao/UserCategorieStatusDAO.php';
 require_once __DIR__ . '/../dao/PropositionDAO.php';
+require_once __DIR__ . '/../service/VotePhase.php';
 
 use vue\page\PageValidation;
 use dao\CategorieDAO;
@@ -14,6 +15,8 @@ use service\SessionManager;
 use service\UserRole;
 use dao\UserCategorieStatusDAO;
 use dao\PropositionDAO;
+use service\VotePhase;
+use service\PhaseVote;
 
 class ValidationController {
 
@@ -48,6 +51,19 @@ class ValidationController {
             exit;
         }
 
+        $phase = VotePhase::getPhaseVote();
+        if ($phase == PhaseVote::Vote1) {
+            $this->validateProposition($user, $session);
+        } else if ($phase == PhaseVote::Vote2) {
+            $this->validateVote($user, $session);
+        } else {
+            $session->setErrorMessage("La validation n'est pas autorisée pendant cette phase.");
+            header('Location: index.php?page=accueil');
+            exit;
+        }
+    }
+
+    private function validateProposition($user, $session) {
         $statusDAO = new UserCategorieStatusDAO(); 
         
         $categorieId = $_SESSION['categorieId'];
@@ -63,6 +79,26 @@ class ValidationController {
         $propositionDao->addProposition($proposition, $categorieId);
 
         $statusDAO->setPropositionStatus($user->getId(), $categorieId);
+
+        $session->setSuccessMessage("Votre proposition a été prise en compte.");
+
+        header('Location: index.php?page=accueil');
+        exit();
+    }
+
+    private function validateVote($user, $session) {
+        $statusDAO = new UserCategorieStatusDAO(); 
+        
+        $categorieId = $_SESSION['categorieId'];
+        if ($statusDAO->getVoteStatus($user->getId(), $categorieId)) { 
+            $session->setErrorMessage("Vous avez déjà voté dans cette catégorie."); 
+            header("Location: index.php?page=accueil"); 
+            exit; 
+        }
+
+        // Envoyer le vote à la base de données
+
+        $statusDAO->setVoteStatus($user->getId(), $categorieId);
 
         $session->setSuccessMessage("Votre proposition a été prise en compte.");
 

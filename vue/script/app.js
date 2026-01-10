@@ -23,6 +23,9 @@ function callSearchTimed() {
     timer = setTimeout(() => search(q), 300);
 }
 
+document.addEventListener("click", voteRedirection);
+
+
 function search(q) {
     fetch("index.php?page=proposition&action=search&q=" + encodeURIComponent(q)).then(response => response.json()).then(data => {
         results.innerHTML = "";
@@ -64,3 +67,21 @@ function openValidation(e) {
         window.location.href = "index.php?page=validation"; 
     }); 
 };
+
+function voteRedirection(e) {
+    const card = e.target.closest(".carte-proposition");
+    if (!card) return;
+
+    const data = {
+        id: card.dataset.id,
+        categorie: card.dataset.categorie
+    };
+
+    fetch("index.php?page=vote&action=select", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    }).then(() => {
+        window.location.href = "index.php?page=validation";
+    });
+}

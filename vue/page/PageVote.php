@@ -28,7 +28,7 @@ class PageVote extends Page {
 
             <div class="cartes-conteneur"><?php
                 foreach ($this->propositions as $proposition) {
-                    $carte = new CarteProposition($proposition);
+                    $carte = new CarteProposition($proposition, $this->categorie->getId());
                     $carte->render();
                 }
             ?></div>

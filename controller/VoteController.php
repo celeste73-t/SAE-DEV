@@ -22,5 +22,13 @@ class VoteController {
         $page = new PageVote("Vote", $categorie, $propositions);
         $page->render(); // le contrôleur déclenche l’affichage
     }
+
+    public function select() { 
+        $data = json_decode(file_get_contents("php://input"), true); 
+        $deezerId = $data['id']; 
+        $categorieId = $data['categorie']; 
+        $propositionDAO = new PropositionDAO(); 
+        $itemData = $propositionDAO->findItem($deezerId); 
+        $proposition = new PropositionItem( $itemData['deezerId'], $itemData['titre'], $itemData['artist'], $itemData['image'] ); $_SESSION['proposition'] = serialize($proposition); $_SESSION['categorieId'] = $categorieId; }
 }
  
