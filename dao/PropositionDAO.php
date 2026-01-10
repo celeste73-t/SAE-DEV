@@ -2,19 +2,23 @@
 namespace dao;
 
 require_once __DIR__ . '/../dao/DAO.php';
+require_once __DIR__ . '/../model/PropositionItem.php';
+require_once __DIR__ . '/../service/Enum.php';
 
 use dao\DAO;
 use PDO;
+use model\PropositionItem;
+use service\CategorieType;
 
 class PropositionDAO extends DAO {
-    private function findItem($deezerId, $type) {
+    private function findItem(int $deezerId, CategorieType $type): ?array {
         $sql = "SELECT * FROM proposition_item WHERE deezerId = ? AND type = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$deezerId, $type]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    private function createItem($proposition) {
+    private function createItem(PropositionItem $proposition): void {
         $sql = "INSERT INTO proposition_item (deezerId, titre, artist, image, type) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$proposition->getIdDeezer(),
@@ -22,10 +26,10 @@ class PropositionDAO extends DAO {
                         $proposition->getArtiste(), 
                         $proposition->getImage(), 
                         $proposition->getType()]);
-        return $this->db->lastInsertId();
+        return;
     }
 
-    public function addProposition($proposition, $categorieId) {
+    public function addProposition(PropositionItem $proposition, int $categorieId): void {
         $item = $this->findItem($proposition->getIdDeezer(),
                                 $proposition->getType());
         if ($item) {
@@ -38,10 +42,10 @@ class PropositionDAO extends DAO {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$itemId, $categorieId, date('Y-m-d H:i:s')]);
 
-        return $this->db->lastInsertId();
+        return;
     }
 
-    public function getNominatedPropositions($categorieId) {
+    public function getNominatedPropositions($categorieId): array {
         $sql = "SELECT itemId, COUNT(*) AS nb 
                 FROM proposition 
                 WHERE categorieId = ? 
@@ -57,10 +61,22 @@ class PropositionDAO extends DAO {
         foreach ($rows as $row) {
             $sqlItem = "SELECT * FROM proposition_item WHERE id = ?"; 
             $stmtItem = $this->db->prepare($sqlItem); 
-            $stmtItem->execute([$itemId]); 
+            $stmtItem->execute([$row['itemId']]); 
             $itemData = $stmtItem->fetch(PDO::FETCH_ASSOC);
 
+            if ($itemData) {
+                $items[] = [
+                    'proposition' => new PropositionItem(
+                        $itemData['deezerId'],
+                        $itemData['type'],
+                        $itemData['titre'],
+                        $itemData['artist'],
+                        $itemData['image']
+                    ),
+                    'nb' => $row['nb']
+                ];
+            }
         }
-
+        return $items;
     }
 }

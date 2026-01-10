@@ -17,7 +17,7 @@ class PropositionItem {
         $this->artiste = $artiste;
         $this->image = $image;
     }
-
+    
     public function getIdDeezer(): int {
         return $this->idDeezer;
     }
