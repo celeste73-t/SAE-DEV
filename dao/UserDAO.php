@@ -6,6 +6,7 @@ require_once __DIR__ . '/../model/User.php';
 require_once __DIR__ . '/../service/Enum.php';
 
 use dao\DAO;
+use PDO;
 use model\User;
 
 class UserDAO extends DAO {

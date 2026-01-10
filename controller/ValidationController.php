@@ -6,12 +6,14 @@ require_once __DIR__ . '/../dao/CategorieDAO.php';
 require_once __DIR__ . '/../service/SessionManager.php';
 require_once __DIR__ . '/../service/Enum.php';
 require_once __DIR__ . '/../dao/UserCategorieStatusDAO.php';
+require_once __DIR__ . '/../dao/PropositionDAO.php';
 
 use vue\page\PageValidation;
 use dao\CategorieDAO;
 use service\SessionManager;
 use service\UserRole;
 use dao\UserCategorieStatusDAO;
+use dao\PropositionDAO;
 
 class ValidationController {
 
@@ -53,7 +55,19 @@ class ValidationController {
             $session->setErrorMessage("Vous avez déjà proposé dans cette catégorie."); 
             header("Location: index.php?page=accueil"); 
             exit; 
-        } 
+        }
+
+        $proposition = unserialize($_SESSION['proposition']);
+
+        $propositionDao = new PropositionDAO();
+        $propositionDao->addProposition(
+            $proposition->getId(),
+            $proposition->getTitre(),
+            $proposition->getArtiste(),
+            $proposition->getImage(),
+            $proposition->getType(),
+            $categorieId
+        );
 
         $statusDAO->setPropositionStatus($user->getId(), $categorieId);
 
