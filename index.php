@@ -71,9 +71,13 @@ switch ($page) {
         }
         break;
     case 'vote':
-        $categorie = $_GET['categorie'] ?? null;
         $controller = new VoteController();
-        $controller->index($categorie);
+        if ($action === "select") {
+            $controller->select();
+        } else {
+            $categorie = $_GET['categorie'] ?? null;
+            $controller->index($categorie);
+        }
         break;
     case 'validation':
         $controller = new ValidationController();

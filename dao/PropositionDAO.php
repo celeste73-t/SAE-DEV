@@ -10,7 +10,7 @@ use PDO;
 use model\PropositionItem;
 
 class PropositionDAO extends DAO {
-    private function findItem(int $deezerId) {
+    public function findItem(int $deezerId) {
         $sql = "SELECT * FROM proposition_item WHERE deezerId = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$deezerId]);
