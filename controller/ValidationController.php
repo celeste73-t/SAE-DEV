@@ -32,7 +32,9 @@ class ValidationController {
         }
         $proposition = unserialize($_SESSION['proposition']);
 
-        $page = new PageValidation("Validation", $proposition, $categorie);
+        $phase = VotePhase::getPhaseVote();
+
+        $page = new PageValidation("Validation", $proposition, $categorie, $phase);
         $page->render(); // le contrôleur déclenche l’affichage
     }
 

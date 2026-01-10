@@ -30,9 +30,7 @@ class VoteController {
         $deezerId = $data['id']; 
         $categorieId = $data['categorie']; 
         $propositionDAO = new PropositionDAO();
-        file_put_contents("debug.txt", "test1", FILE_APPEND);
         $itemData = $propositionDAO->findItem($deezerId);
-        file_put_contents("debug.txt", "test2", FILE_APPEND);
         $proposition = new PropositionItem(
             $itemData['deezerId'], 
             $itemData['titre'], 
