@@ -5,13 +5,13 @@ require_once __DIR__ . '/../vue/page/PageProposition.php';
 require_once __DIR__ . '/../dao/CategorieDAO.php';
 require_once __DIR__ . '/../service/ApiAcces.php';
 require_once __DIR__ . '/../service/Enum.php';
-require_once __DIR__ . '/../model/Proposition.php';
+require_once __DIR__ . '/../model/PropositionItem.php';
 
 use vue\page\PageProposition;
 use dao\CategorieDAO;
 use service\ApiAcces;
 use service\CategorieType;
-use model\Proposition;
+use model\PropositionItem;
 
 class PropositionController {
 
@@ -80,7 +80,7 @@ class PropositionController {
     public function select() {
         $data = json_decode(file_get_contents("php://input"), true); 
         
-        $_SESSION['proposition'] = serialize(new Proposition( 
+        $_SESSION['proposition'] = serialize(new PropositionItem( 
             $data['id'], 
             $data['type'], 
             $data['titre'], 

@@ -3,23 +3,23 @@ namespace model;
 
 require_once __DIR__ . '/User.php';
 
-class Proposition {
-    private int $id;
+class PropositionItem {
+    private int $idDeezer;
     private string $type;
     private string $titre;
     private string $artiste;
     private string $image;
 
-    public function __construct(int $id, string $type, string $titre, string $artiste, string $image) {
-        $this->id = $id;
+    public function __construct(int $idDeezer, string $type, string $titre, string $artiste, string $image) {
+        $this->idDeezer = $idDeezer;
         $this->type = $type;
         $this->titre = $titre;
         $this->artiste = $artiste;
         $this->image = $image;
     }
 
-    public function getId(): int {
-        return $this->id;
+    public function getIdDeezer(): int {
+        return $this->idDeezer;
     }
 
     public function getType(): string {

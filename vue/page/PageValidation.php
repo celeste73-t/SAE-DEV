@@ -2,9 +2,9 @@
 namespace vue\page;
 
 require_once __DIR__ . '/Page.php';
-require_once __DIR__ . '/../../model/Proposition.php';
+require_once __DIR__ . '/../../model/PropositionItem.php';
 
-use model\Proposition;
+use model\PropositionItem;
 
 class PageValidation extends Page {
     private $proposition;
@@ -25,7 +25,7 @@ class PageValidation extends Page {
                 src=\"https://widget.deezer.com/widget/dark/" 
                     . $this->proposition->getType() 
                     . "/" 
-                    . $this->proposition->getId() 
+                    . $this->proposition->getIdDeezer() 
                     . ( $this->proposition->getType() == "artist" ? "/top_tracks" : "" ) 
                     . "?tracklist=false\" 
                 width=\"400\" 

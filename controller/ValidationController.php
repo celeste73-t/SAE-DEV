@@ -60,14 +60,7 @@ class ValidationController {
         $proposition = unserialize($_SESSION['proposition']);
 
         $propositionDao = new PropositionDAO();
-        $propositionDao->addProposition(
-            $proposition->getId(),
-            $proposition->getTitre(),
-            $proposition->getArtiste(),
-            $proposition->getImage(),
-            $proposition->getType(),
-            $categorieId
-        );
+        $propositionDao->addProposition($proposition, $categorieId);
 
         $statusDAO->setPropositionStatus($user->getId(), $categorieId);
 
