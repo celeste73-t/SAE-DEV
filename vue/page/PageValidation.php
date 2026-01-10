@@ -3,8 +3,10 @@ namespace vue\page;
 
 require_once __DIR__ . '/Page.php';
 require_once __DIR__ . '/../../model/PropositionItem.php';
+require_once __DIR__ . '/../../service/Enum.php';
 
 use model\PropositionItem;
+use service\CategorieType;
 
 class PageValidation extends Page {
     private $proposition;
@@ -23,10 +25,10 @@ class PageValidation extends Page {
             <?php echo "
                 <iframe title=\"deezer-widget\" 
                 src=\"https://widget.deezer.com/widget/dark/" 
-                    . $this->proposition->getType() 
+                    . $this->categorie->getType()->value
                     . "/" 
                     . $this->proposition->getIdDeezer() 
-                    . ( $this->proposition->getType() == "artist" ? "/top_tracks" : "" ) 
+                    . ( $this->categorie->getType() == "artist" ? "/top_tracks" : "" ) 
                     . "?tracklist=false\" 
                 width=\"400\" 
                 height=\"300\" 

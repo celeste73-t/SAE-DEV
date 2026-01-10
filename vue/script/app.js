@@ -29,7 +29,6 @@ function search(q) {
         data.forEach(item => {
             results.innerHTML += ` 
             <div class="suggestion" 
-                data-type="${item.type}" 
                 data-id="${item.id}"
                 data-titre="${item.titre}"
                 data-artiste="${item.artiste}"
@@ -51,7 +50,6 @@ function openValidation(e) {
     if (!item) return; 
     
     const data = { 
-        type: item.dataset.type, 
         id: item.dataset.id, 
         titre: item.dataset.titre, 
         artiste: item.dataset.artiste, 

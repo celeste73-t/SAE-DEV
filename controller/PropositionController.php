@@ -43,7 +43,6 @@ class PropositionController {
             switch ($categorie->getType()) {
                 case CategorieType::Track:
                     $results[] = [
-                        "type" => "track",
                         "id" => $t['id'],
                         "titre" => $t['title'],
                         "artiste" => $t['artist']['name'],
@@ -52,7 +51,6 @@ class PropositionController {
                     break;
                 case CategorieType::Album:
                     $results[] = [
-                        "type" => "album",
                         "id" => $t['id'],
                         "titre" => $t['title'],
                         "artiste" => $t['artist']['name'],
@@ -61,7 +59,6 @@ class PropositionController {
                     break;
                 case CategorieType::Artist:
                     $results[] = [
-                        "type" => "artist",
                         "id" => $t['id'],
                         "titre" => $t['name'],
                         "artiste" => "",
@@ -82,7 +79,6 @@ class PropositionController {
         
         $_SESSION['proposition'] = serialize(new PropositionItem( 
             $data['id'], 
-            $data['type'], 
             $data['titre'], 
             $data['artiste'], 
             $data['image'] 

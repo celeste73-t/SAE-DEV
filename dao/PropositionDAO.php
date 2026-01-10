@@ -10,32 +10,30 @@ use PDO;
 use model\PropositionItem;
 
 class PropositionDAO extends DAO {
-    private function findItem(int $deezerId, string $type) {
-        $sql = "SELECT * FROM proposition_item WHERE deezerId = ? AND type = ?";
+    private function findItem(int $deezerId) {
+        $sql = "SELECT * FROM proposition_item WHERE deezerId = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$deezerId, $type]);
+        $stmt->execute([$deezerId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     private function createItem(PropositionItem $proposition): int {
-        $sql = "INSERT INTO proposition_item (deezerId, titre, artist, image, type) 
-                VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO proposition_item (deezerId, titre, artist, image) 
+                VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$proposition->getIdDeezer(),
                         $proposition->getTitre(), 
                         $proposition->getArtiste(), 
-                        $proposition->getImage(), 
-                        $proposition->getType()]);
+                        $proposition->getImage()]);
         return $this->db->lastInsertId();
     }
 
     public function addProposition(PropositionItem $proposition, int $categorieId): void {
-        $item = $this->findItem($proposition->getIdDeezer(),
-                                $proposition->getType());
+        $item = $this->findItem($proposition->getIdDeezer());
         if ($item) {
             $itemId = $item['id'];
         } else {
-            $itemId = $this->createItem($proposition, $proposition->getType());
+            $itemId = $this->createItem($proposition);
         }
 
         $sql = "INSERT INTO proposition (itemId, categorieId, dateProposition) 
@@ -68,7 +66,6 @@ class PropositionDAO extends DAO {
             if ($itemData) {
                 $items[] = new PropositionItem(
                     $itemData['deezerId'],
-                    $itemData['type'],
                     $itemData['titre'],
                     $itemData['artist'],
                     $itemData['image']

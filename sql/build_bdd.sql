@@ -157,7 +157,6 @@ CREATE TABLE IF NOT EXISTS `proposition_item` (
     `titre` varchar(45) NOT NULL,
     `artist` varchar(45),
     `image` varchar(255),
-    `type` ENUM('track', 'album', 'artist') NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY unique_item (deezerId, type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
