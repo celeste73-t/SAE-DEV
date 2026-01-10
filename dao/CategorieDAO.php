@@ -1,8 +1,11 @@
 <?php
 namespace dao;
 
+require_once __DIR__ . '/../dao/DAO.php';
 require_once __DIR__ . '/../model/Categorie.php';
 
+use dao\DAO;
+use PDO;
 use model\Categorie;
 
 class CategorieDAO extends DAO {

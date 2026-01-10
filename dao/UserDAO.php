@@ -1,9 +1,11 @@
 <?php
 namespace dao;
 
+require_once __DIR__ . '/../dao/DAO.php';
 require_once __DIR__ . '/../model/User.php';
 require_once __DIR__ . '/../service/Enum.php';
 
+use dao\DAO;
 use model\User;
 
 class UserDAO extends DAO {

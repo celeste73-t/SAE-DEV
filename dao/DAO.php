@@ -5,10 +5,9 @@ require_once __DIR__ . '/../service/ConnectionBDD.php';
 
 use service\ConnectionBDD;
 use PDO;
-use PDOException;
 
 abstract class DAO {
-    private PDO $db;
+    protected PDO $db;
 
     /**
      * Initialise le DAO avec l'objet de connexion PDO.

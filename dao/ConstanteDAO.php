@@ -1,7 +1,13 @@
 <?php
 namespace dao;
 
-class ConstanteDAO {
+require_once __DIR__ . '/../dao/DAO.php';
+
+use dao\DAO;
+use PDO;
+use PDOException;
+
+class ConstanteDAO extends DAO {
     /**
      * Récupère toutes les données de la table 'constante'.
      * @return array Les données de la table ou un tableau vide.
