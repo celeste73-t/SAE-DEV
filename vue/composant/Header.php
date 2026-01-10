@@ -9,7 +9,7 @@ use service\SessionManager;
 use service\UserRole;
 
 class Header extends Composant {
-    public function render() {
+    protected function renderContent() {
         $session = SessionManager::getInstance();
         $isConnected = $session->isLogged();
         ?>

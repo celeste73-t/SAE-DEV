@@ -5,25 +5,35 @@ require_once __DIR__ . '/Composant.php';
 require_once __DIR__ . '/../../service/Enum.php';
 
 use service\PhaseVote;
+use vue\composant\Composant;
 
-class CarteCategorie {
-    public function render($phase, $categorie) {
-        echo '<a href="' . $this->getUrl($phase, $categorie) . '" class="carte">';
+class CarteCategorie extends Composant {
+    private $phase;
+    private $categorie;
+
+    public function __construct($phase, $categorie) {
+        parent::__construct("carte carte-categorie");
+        $this->phase = $phase;
+        $this->categorie = $categorie;
+    }
+
+    protected function renderContent() {
+        echo '<a href="' . $this->getUrl() . '">';
         ?>
-            <h3><?php echo $categorie->getNom(); ?></h3>
-            <p><?php echo $categorie->getDescription(); ?></p>
+            <h3><?php echo $this->categorie->getNom(); ?></h3>
+            <p><?php echo $this->categorie->getDescription(); ?></p>
             </a>
         <?php
     }
 
-    private function getUrl($phase, $categorie) {
-        switch ($phase) {
+    private function getUrl() {
+        switch ($this->phase) {
             case PhaseVote::Vote1:
-                return "?page=proposition&categorie=" . $categorie->getId();
+                return "?page=proposition&categorie=" . $this->categorie->getId();
             case PhaseVote::Vote2:
-                return "?page=vote&categorie=" . $categorie->getId();
+                return "?page=vote&categorie=" . $this->categorie->getId();
             case PhaseVote::Resultats:
-                return "?page=resultats&categorie=" . $categorie->getId();
+                return "?page=resultats&categorie=" . $this->categorie->getId();
             default:
                 return "#";
         }

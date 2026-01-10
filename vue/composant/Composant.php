@@ -2,8 +2,17 @@
 namespace vue\composant;
 
 abstract class Composant {
-    public function __construct() {
+    protected string $className;
+
+    public function __construct(string $className = "composant") {
+        $this->className = $className;
     }
 
-    abstract public function render();
+    abstract protected function renderContent();
+
+    public function render() {
+        echo "<div class='{$this->className}'>";
+        $this->renderContent();
+        echo "</div>";
+    }
 }

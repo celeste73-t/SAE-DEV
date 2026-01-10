@@ -12,12 +12,12 @@ use vue\composant\Header;
 use vue\composant\Footer;
 
 abstract class Page {
-    protected $title = "Page";
+    protected string $title;
     protected $content;
     protected SessionManager $session;
 
 
-    public function __construct($title = "Page") {
+    public function __construct(string $title) {
         $this->title = "TopTracks - " . $title;
         $this->session = SessionManager::getInstance();
     }

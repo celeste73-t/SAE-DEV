@@ -8,25 +8,25 @@ require_once __DIR__ . '/../service/Enum.php';
 use dao\DAO;
 use PDO;
 use model\PropositionItem;
-use service\CategorieType;
 
 class PropositionDAO extends DAO {
-    private function findItem(int $deezerId, CategorieType $type): ?array {
+    private function findItem(int $deezerId, string $type) {
         $sql = "SELECT * FROM proposition_item WHERE deezerId = ? AND type = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$deezerId, $type]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    private function createItem(PropositionItem $proposition): void {
-        $sql = "INSERT INTO proposition_item (deezerId, titre, artist, image, type) VALUES (?, ?, ?, ?, ?)";
+    private function createItem(PropositionItem $proposition): int {
+        $sql = "INSERT INTO proposition_item (deezerId, titre, artist, image, type) 
+                VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$proposition->getIdDeezer(),
                         $proposition->getTitre(), 
                         $proposition->getArtiste(), 
                         $proposition->getImage(), 
                         $proposition->getType()]);
-        return;
+        return $this->db->lastInsertId();
     }
 
     public function addProposition(PropositionItem $proposition, int $categorieId): void {
@@ -35,10 +35,11 @@ class PropositionDAO extends DAO {
         if ($item) {
             $itemId = $item['id'];
         } else {
-            $itemId = $this->createItem($proposition, $type);
+            $itemId = $this->createItem($proposition, $proposition->getType());
         }
 
-        $sql = "INSERT INTO proposition (itemId, categorieId, dateProposition) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO proposition (itemId, categorieId, dateProposition) 
+                VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$itemId, $categorieId, date('Y-m-d H:i:s')]);
 
@@ -65,16 +66,13 @@ class PropositionDAO extends DAO {
             $itemData = $stmtItem->fetch(PDO::FETCH_ASSOC);
 
             if ($itemData) {
-                $items[] = [
-                    'proposition' => new PropositionItem(
-                        $itemData['deezerId'],
-                        $itemData['type'],
-                        $itemData['titre'],
-                        $itemData['artist'],
-                        $itemData['image']
-                    ),
-                    'nb' => $row['nb']
-                ];
+                $items[] = new PropositionItem(
+                    $itemData['deezerId'],
+                    $itemData['type'],
+                    $itemData['titre'],
+                    $itemData['artist'],
+                    $itemData['image']
+                );
             }
         }
         return $items;

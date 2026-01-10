@@ -53,8 +53,8 @@ class PageAccueil extends Page {
     private function AfficherCategories() {
         ?><div class="cartes-conteneur"><?php
         foreach ($this->categories as $categorie) {
-            $carte = new CarteCategorie();
-            $carte->render($this->phase, $categorie);
+            $carte = new CarteCategorie($this->phase, $categorie);
+            $carte->render();
         }
         ?></div><?php
     }
