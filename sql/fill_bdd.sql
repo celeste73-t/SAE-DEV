@@ -1,5 +1,7 @@
-INSERT INTO constantes (startPremierTour, startSecondTour, endSecondTour) 
-VALUES ('2025-03-01 00:00:00', '2025-03-15 00:00:00', '2025-03-30 00:00:00');
+INSERT INTO edition (nom, debutNomination, debutVote, debutResultat, active) 
+VALUES 
+('edition test 2026', '2025-03-01 00:00:00', '2025-03-15 00:00:00', '2025-03-30 00:00:00', 1),
+('edition 2026', '2025-04-01 00:00:00', '2025-04-15 00:00:00', '2025-04-30 00:00:00', 0);
 
 INSERT INTO utilisateur (nom, email, motDePasse, userType) 
 VALUES ('test', 'test@tes.test', '$2y$10$0vHPn9Lw/c1RwDT9ObLOV.XsnXKKH.ySerCFk0FtxFQBIFuFrqkfS', 'votant');
