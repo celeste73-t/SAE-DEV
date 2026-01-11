@@ -8,7 +8,7 @@ use dao\DAO;
 class UserCategorieStatusDAO extends DAO {
     private function findRow($userId, $categorieId) { 
         $sql = "SELECT * 
-                FROM user_categorie_status 
+                FROM statut_user_categorie 
                 WHERE utilisateurId = ? AND categorieId = ?"; 
         $stmt = $this->db->prepare($sql); 
         $stmt->execute([$userId, $categorieId]); 
@@ -16,7 +16,7 @@ class UserCategorieStatusDAO extends DAO {
     } 
     
     private function createRow($userId, $categorieId) { 
-        $sql = "INSERT INTO user_categorie_status (utilisateurId, categorieId, aPropose, aVote) 
+        $sql = "INSERT INTO statut_user_categorie (utilisateurId, categorieId, aPropose, aVote) 
                 VALUES (?, ?, 0, 0)"; 
         $stmt = $this->db->prepare($sql); 
         $stmt->execute([$userId, $categorieId]); 
@@ -42,7 +42,7 @@ class UserCategorieStatusDAO extends DAO {
 
     public function setPropositionStatus($userId, $categorieId) { 
         $this->ensureRowExists($userId, $categorieId); 
-        $sql = "UPDATE user_categorie_status 
+        $sql = "UPDATE statut_user_categorie 
                 SET aPropose = 1 
                 WHERE utilisateurId = ? AND categorieId = ?"; 
         $stmt = $this->db->prepare($sql); 
@@ -51,7 +51,7 @@ class UserCategorieStatusDAO extends DAO {
     
     public function setVoteStatus($userId, $categorieId) { 
         $this->ensureRowExists($userId, $categorieId); 
-        $sql = "UPDATE user_categorie_status 
+        $sql = "UPDATE statut_user_categorie 
                 SET aVote = 1 
                 WHERE utilisateurId = ? AND categorieId = ?"; 
         $stmt = $this->db->prepare($sql); 

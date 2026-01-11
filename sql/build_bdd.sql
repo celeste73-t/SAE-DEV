@@ -63,7 +63,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `bdd_sae`.`proposition_item` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `deezerId` BIGINT NOT NULL,
-  `tire` VARCHAR(45) NOT NULL,
+  `titre` VARCHAR(45) NOT NULL,
   `artist` VARCHAR(45) NULL,
   `image` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
@@ -94,11 +94,11 @@ CREATE TABLE IF NOT EXISTS `bdd_sae`.`proposition` (
   `dateProposition` DATETIME NULL,
   `itemId` INT NOT NULL,
   `categorieId` INT NOT NULL,
-  `candidat_id` INT NOT NULL,
+  `candidatId` INT; -- NOT NULL, temporaire
   PRIMARY KEY (`id`),
   INDEX `fk_proposition_proposition_item1_idx` (`itemId` ASC) VISIBLE,
   INDEX `fk_proposition_categorie1_idx` (`categorieId` ASC) VISIBLE,
-  INDEX `fk_proposition_candidat1_idx` (`candidat_id` ASC) VISIBLE,
+  INDEX `fk_proposition_candidat1_idx` (`candidatId` ASC) VISIBLE,
   CONSTRAINT `fk_proposition_proposition_item1`
     FOREIGN KEY (`itemId`)
     REFERENCES `bdd_sae`.`proposition_item` (`id`)
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `bdd_sae`.`proposition` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_proposition_candidat1`
-    FOREIGN KEY (`candidat_id`)
+    FOREIGN KEY (`candidatId`)
     REFERENCES `bdd_sae`.`candidat` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -162,8 +162,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `bdd_sae`.`statut_user_categorie` (
   `categorieId` INT NOT NULL,
   `utilisateurId` INT NOT NULL,
-  `aVote` TINYINT NOT NULL DEFAULT 0,
   `aPropose` TINYINT NOT NULL DEFAULT 0,
+  `aVote` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`categorieId`, `utilisateurId`),
   INDEX `fk_categorie_has_utilisateur_utilisateur1_idx` (`utilisateurId` ASC) VISIBLE,
   INDEX `fk_categorie_has_utilisateur_categorie1_idx` (`categorieId` ASC) VISIBLE,
