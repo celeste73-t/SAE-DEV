@@ -11,7 +11,6 @@ use model\Categorie;
 class CategorieDAO extends DAO {
     public function findById(int $id): ?Categorie {
         try {
-            // On prépare la requête pour éviter les injections SQL
             $query = "SELECT * FROM categorie WHERE id = :id LIMIT 1";
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -36,6 +35,29 @@ class CategorieDAO extends DAO {
         try {
             $query = $this->db->query("SELECT * FROM categorie");
             $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $categories = [];
+            foreach ($rows as $row) {
+                $categories[] = Categorie::fromDatabaseArray($row);
+            }
+
+            return $categories;
+
+        } catch (PDOException $e) {
+            error_log("Erreur dans CategorieDAO::getAllCategories : " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getCategoriesForEdition(int $editionId): array {
+        try {
+            $sql = "SELECT c.* 
+                    FROM categorie c 
+                    JOIN edition_categorie ec ON ec.categorieId = c.id 
+                    WHERE ec.editionId = ?"; 
+            $stmt = $this->db->prepare($sql); 
+            $stmt->execute([$editionId]); 
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             $categories = [];
             foreach ($rows as $row) {

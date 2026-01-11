@@ -48,4 +48,16 @@ class EditionDAO extends DAO {
             throw $e;
         }
     }
+
+    public function categorieInActiveEdition(int $categorieId): bool { 
+        $sql = "SELECT 1 
+                FROM edition_categorie 
+                WHERE categorieId = ? AND editionId = ? 
+                LIMIT 1"; 
+        
+        $stmt = $this->db->prepare($sql); 
+        $stmt->execute([$categorieId, $this->getActive()->getId()]); 
+        
+        return (bool) $stmt->fetchColumn(); 
+    }
 }

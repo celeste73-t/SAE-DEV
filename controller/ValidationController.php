@@ -6,6 +6,7 @@ require_once __DIR__ . '/../dao/CategorieDAO.php';
 require_once __DIR__ . '/../service/SessionManager.php';
 require_once __DIR__ . '/../service/Enum.php';
 require_once __DIR__ . '/../dao/UserCategorieStatusDAO.php';
+require_once __DIR__ . '/../dao/EditionDAO.php';
 require_once __DIR__ . '/../dao/PropositionDAO.php';
 require_once __DIR__ . '/../dao/VoteDAO.php';
 require_once __DIR__ . '/../service/VotePhase.php';
@@ -15,6 +16,7 @@ use dao\CategorieDAO;
 use service\SessionManager;
 use service\UserRole;
 use dao\UserCategorieStatusDAO;
+use dao\EditionDAO;
 use dao\PropositionDAO;
 use dao\VoteDAO;
 use service\VotePhase;
@@ -76,6 +78,14 @@ class ValidationController {
             header("Location: index.php?page=accueil"); 
             exit; 
         }
+
+        $editionDAO = new EditionDAO();
+        if (!$editionDAO->categorieInActiveEdition($categorieId)) {
+            $session->setErrorMessage("Cette catégorie n'est pas actuellement disponible."); 
+            header("Location: index.php?page=accueil"); 
+            exit; 
+        }
+
 
         $proposition = unserialize($_SESSION['proposition']);
 
