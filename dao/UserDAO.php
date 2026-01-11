@@ -7,6 +7,7 @@ require_once __DIR__ . '/../service/Enum.php';
 
 use dao\DAO;
 use PDO;
+use PDOException;
 use model\User;
 use service\UserRole;
 
@@ -86,4 +87,3 @@ class UserDAO extends DAO {
         return (bool) $query->fetchColumn();
     }
 }
-?>

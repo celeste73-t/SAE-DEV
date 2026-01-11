@@ -2,7 +2,7 @@
 namespace service;
 
 enum UserRole: string {
-    case User = 'votant';
+    case User = 'membre';
     case Candidat = 'candidat';
     case Admin = 'administrateur';
 }
