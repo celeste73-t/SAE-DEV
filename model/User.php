@@ -40,21 +40,4 @@ class User {
     public function getRole(): UserRole {
         return $this->role;
     }
-
-    public static function fromDatabaseArray(array $data): self {
-        $role = match($data['userType']) {
-            'votant' => UserRole::User,
-            'candidat' => UserRole::Candidat,
-            'administrateur' => UserRole::Admin,
-            default => UserRole::Visiteur
-        };
-
-        return new self(
-            (int)$data['id'],
-            $data['email'],
-            $data['nom'],
-            $data['motDePasse'],
-            $role
-        );
-    }
 }

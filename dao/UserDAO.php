@@ -8,6 +8,7 @@ require_once __DIR__ . '/../service/Enum.php';
 use dao\DAO;
 use PDO;
 use model\User;
+use service\UserRole;
 
 class UserDAO extends DAO {
     /**
@@ -24,14 +25,29 @@ class UserDAO extends DAO {
             $stmt->execute();
             
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
-
-            // Utilise la méthode statique d'hydratation de la classe User (recommandé)
-            return User::fromDatabaseArray($data);
             
+            $id = (int)$data['id'];
+            $role = match($data['userType']) {
+                'votant' => UserRole::User,
+                'administrateur' => UserRole::Admin,
+                default => UserRole::User
+            };
+
+            if ($this->isCandidat($id)) {
+                $role = UserRole::Candidat;
+            }
+
+            return new User(
+                $id,
+                $data['email'],
+                $data['nom'],
+                $data['motDePasse'],
+                $role
+            );
         } catch (PDOException $e) {
             error_log("Erreur dans UserDAO::findByEmail : " . $e->getMessage());
             // En cas d'erreur de base de données, retourne null
@@ -61,6 +77,13 @@ class UserDAO extends DAO {
             error_log("Erreur dans UserDAO::save : " . $e->getMessage());
             return false;
         }
+    }
+
+    private function isCandidat(int $userId): bool {
+        $query = $this->db->prepare("SELECT 1 FROM candidat WHERE utilisateurId = :id LIMIT 1");
+        $query->bindParam(':id', $userId);
+        $query->execute();
+        return (bool) $query->fetchColumn();
     }
 }
 ?>
