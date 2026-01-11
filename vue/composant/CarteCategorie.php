@@ -33,7 +33,7 @@ class CarteCategorie extends Composant {
             case PhaseVote::Vote2:
                 return "?page=vote&categorie=" . $this->categorie->getId();
             case PhaseVote::Resultats:
-                return "?page=resultats&categorie=" . $this->categorie->getId();
+                return "?page=resultat&categorie=" . $this->categorie->getId();
             default:
                 return "#";
         }

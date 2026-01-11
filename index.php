@@ -6,9 +6,9 @@ require_once __DIR__ . '/controller/ConnexionController.php';
 require_once __DIR__ . '/controller/ContactController.php';
 require_once __DIR__ . '/controller/InscriptionController.php';
 require_once __DIR__ . '/controller/PropositionController.php';
-require_once __DIR__ . '/controller/VoteController.php';
+require_once __DIR__ . '/controller/ResultatController.php';
 require_once __DIR__ . '/controller/ValidationController.php';
-
+require_once __DIR__ . '/controller/VoteController.php';
 
 use controller\AccueilController;
 use controller\AProposController;
@@ -16,8 +16,9 @@ use controller\ConnexionController;
 use controller\ContactController;
 use controller\InscriptionController;
 use controller\PropositionController;
-use controller\VoteController;
+use controller\ResultatController;
 use controller\ValidationController;
+use controller\VoteController;
 
 session_start();
 
@@ -70,14 +71,10 @@ switch ($page) {
             $controller->index($categorie);
         }
         break;
-    case 'vote':
-        $controller = new VoteController();
-        if ($action === "select") {
-            $controller->select();
-        } else {
-            $categorie = $_GET['categorie'] ?? null;
-            $controller->index($categorie);
-        }
+    case 'resultat':
+        $controller = new ResultatController();
+        $categorie = $_GET['categorie'] ?? null;
+        $controller->index($categorie);
         break;
     case 'validation':
         $controller = new ValidationController();
@@ -85,6 +82,15 @@ switch ($page) {
             $controller->validate();
         } else {
             $controller->index();
+        }
+        break;
+    case 'vote':
+        $controller = new VoteController();
+        if ($action === "select") {
+            $controller->select();
+        } else {
+            $categorie = $_GET['categorie'] ?? null;
+            $controller->index($categorie);
         }
         break;
     // autres routes...
