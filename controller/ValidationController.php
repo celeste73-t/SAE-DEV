@@ -7,6 +7,7 @@ require_once __DIR__ . '/../service/SessionManager.php';
 require_once __DIR__ . '/../service/Enum.php';
 require_once __DIR__ . '/../dao/UserCategorieStatusDAO.php';
 require_once __DIR__ . '/../dao/PropositionDAO.php';
+require_once __DIR__ . '/../dao/VoteDAO.php';
 require_once __DIR__ . '/../service/VotePhase.php';
 
 use vue\page\PageValidation;
@@ -15,6 +16,7 @@ use service\SessionManager;
 use service\UserRole;
 use dao\UserCategorieStatusDAO;
 use dao\PropositionDAO;
+use dao\VoteDAO;
 use service\VotePhase;
 use service\PhaseVote;
 
@@ -99,10 +101,14 @@ class ValidationController {
         }
 
         // Envoyer le vote à la base de données
+        $proposition = unserialize($_SESSION['proposition']);
+        
+        $voteDAO = new VoteDAO();
+        $voteDAO->addVote($proposition);
 
         $statusDAO->setVoteStatus($user->getId(), $categorieId);
 
-        $session->setSuccessMessage("Votre proposition a été prise en compte.");
+        $session->setSuccessMessage("Votre vote a été pris en compte.");
 
         header('Location: index.php?page=accueil');
         exit();

@@ -17,6 +17,16 @@ class PropositionDAO extends DAO {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function findPropositionByDeezerId(int $deezerId) {
+        $sql = "SELECT p.* 
+                FROM proposition p
+                JOIN proposition_item i ON p.itemId = i.id
+                WHERE i.deezerId = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$deezerId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     private function createItem(PropositionItem $proposition): int {
         $sql = "INSERT INTO proposition_item (deezerId, titre, artist, image) 
                 VALUES (?, ?, ?, ?)";
