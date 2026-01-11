@@ -46,10 +46,10 @@ class PropositionDAO extends DAO {
             $itemId = $this->createItem($proposition);
         }
 
-        $sql = "INSERT INTO proposition (itemId, categorieId, dateProposition) 
-                VALUES (?, ?, ?)";
+        $sql = "INSERT INTO proposition (dateProposition, itemId, categorieId, candidatId) 
+                VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$itemId, $categorieId, date('Y-m-d H:i:s')]);
+        $stmt->execute([date('Y-m-d H:i:s'), $itemId, $categorieId, 1]); # Emule une atribution automatique du compte
 
         return;
     }

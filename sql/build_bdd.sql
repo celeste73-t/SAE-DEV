@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `bdd_sae`.`proposition` (
   `dateProposition` DATETIME NULL,
   `itemId` INT NOT NULL,
   `categorieId` INT NOT NULL,
-  `candidatId` INT; -- NOT NULL, temporaire
+  `candidatId` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_proposition_proposition_item1_idx` (`itemId` ASC) VISIBLE,
   INDEX `fk_proposition_categorie1_idx` (`categorieId` ASC) VISIBLE,
