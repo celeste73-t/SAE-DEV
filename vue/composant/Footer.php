@@ -7,7 +7,20 @@ class Footer extends Composant {
     protected function renderContent() {
         ?>
         <footer>
-            <p>&copy; 2024 Mon Site Web. Tous droits réservés.</p>
+            <h2>Mentions Légales</h2>
+            <h4>Éditeur et Directeur de la publication</h4>
+            <p> Rafaël HOFF:</p>
+            <a href="mailto:hoff.rafael06@gmail.com">
+                hoff.rafael06@gmail.com
+            </a>
+            <p> Celeste TOLEC:</p>
+            <a href="mailto:celeste.tollec@gmail.com">
+                celeste.tollec@gmail.com
+            </a>
+            <p> Noah CLEON</p>
+            <h4>Hébergeur</h4>
+            <p>OVHCloud <br> rue Kellermann- 59100 Roubaix- France</p>
+            <a href="https://www.ovhcloud.com/fr">www.ovhcloud.com/fr</a>
         </footer>
         <?php
     }

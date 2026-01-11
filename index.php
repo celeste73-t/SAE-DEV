@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/controller/AccueilController.php';
 require_once __DIR__ . '/controller/AProposController.php';
+require_once __DIR__ . '/controller/CGUController.php';
 require_once __DIR__ . '/controller/ConnexionController.php';
 require_once __DIR__ . '/controller/ContactController.php';
 require_once __DIR__ . '/controller/InscriptionController.php';
@@ -12,6 +13,7 @@ require_once __DIR__ . '/controller/VoteController.php';
 
 use controller\AccueilController;
 use controller\AProposController;
+use controller\CGUController;
 use controller\ConnexionController;
 use controller\ContactController;
 use controller\InscriptionController;
@@ -35,6 +37,10 @@ switch ($page) {
         break;
     case 'aPropos':
         $controller = new AProposController();
+        $controller->index();
+        break;
+    case 'cgu':
+        $controller = new CGUController();
         $controller->index();
         break;
     case 'connexion':
