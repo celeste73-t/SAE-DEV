@@ -35,7 +35,8 @@ class ResultatDAO extends DAO {
                 continue; 
             } 
             
-            $item = new PropositionItem( 
+            $item = new PropositionItem(
+                $itemData['id'],
                 $itemData['deezerId'], 
                 $itemData['titre'], 
                 $itemData['artist'], 
@@ -50,5 +51,16 @@ class ResultatDAO extends DAO {
             $rang++; 
         } 
         return $resultats; 
+    }
+
+    private function archiveResultat(Resultat $resultat, int $categorieId, int $editionId): int {
+        $sql = "INSERT INTO resultat (nbVotes, rang, editionId, itemId, categorieId) 
+                VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$resultat->getNbVote(),
+                        $resultat->getRang(), 
+                        $resultat->getProposition()->getId(), 
+                        $categorieId]);
+        return $this->db->lastInsertId();
     }
 }

@@ -32,6 +32,7 @@ class VoteController {
         $propositionDAO = new PropositionDAO();
         $itemData = $propositionDAO->findItem($deezerId);
         $proposition = new PropositionItem(
+            $itemData['id'],
             $itemData['deezerId'], 
             $itemData['titre'], 
             $itemData['artist'], 

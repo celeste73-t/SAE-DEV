@@ -77,7 +77,8 @@ class PropositionController {
     public function select() {
         $data = json_decode(file_get_contents("php://input"), true); 
         
-        $_SESSION['proposition'] = serialize(new PropositionItem( 
+        $_SESSION['proposition'] = serialize(new PropositionItem(
+            null,
             $data['id'], 
             $data['titre'], 
             $data['artiste'], 

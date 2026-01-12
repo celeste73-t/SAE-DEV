@@ -75,6 +75,7 @@ class PropositionDAO extends DAO {
 
             if ($itemData) {
                 $items[] = new PropositionItem(
+                    $itemData['id'],
                     $itemData['deezerId'],
                     $itemData['titre'],
                     $itemData['artist'],

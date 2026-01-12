@@ -5,7 +5,6 @@ require_once __DIR__ . '/Page.php';
 require_once __DIR__ . '/../../model/PropositionItem.php';
 require_once __DIR__ . '/../../service/Enum.php';
 
-use model\PropositionItem;
 use service\CategorieType;
 use service\PhaseVote;
 
