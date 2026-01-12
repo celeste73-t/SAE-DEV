@@ -54,13 +54,21 @@ class PropositionDAO extends DAO {
         return;
     }
 
+
     public function getNominatedPropositions($categorieId): array {
-        $sql = "SELECT itemId, COUNT(*) AS nb 
-                FROM proposition 
-                WHERE categorieId = ? 
-                GROUP BY itemId 
-                ORDER BY nb DESC 
-                LIMIT 5 ";
+        $sql = "SELECT 
+                    i.id AS itemId,
+                    i.deezerId,
+                    i.titre,
+                    i.artist,
+                    i.image,
+                    COUNT(p.id) AS nb
+                FROM proposition p
+                JOIN proposition_item i ON p.itemId = i.id
+                WHERE p.categorieId = ?
+                GROUP BY i.id, i.deezerId, i.titre, i.artist, i.image
+                ORDER BY nb DESC
+                LIMIT 5";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$categorieId]);
@@ -68,21 +76,51 @@ class PropositionDAO extends DAO {
 
         $items = [];
         foreach ($rows as $row) {
-            $sqlItem = "SELECT * FROM proposition_item WHERE id = ?"; 
-            $stmtItem = $this->db->prepare($sqlItem); 
-            $stmtItem->execute([$row['itemId']]); 
-            $itemData = $stmtItem->fetch(PDO::FETCH_ASSOC);
-
-            if ($itemData) {
-                $items[] = new PropositionItem(
-                    $itemData['id'],
-                    $itemData['deezerId'],
-                    $itemData['titre'],
-                    $itemData['artist'],
-                    $itemData['image']
-                );
-            }
+            $items[] = new PropositionItem(
+                $row['itemId'],
+                $row['deezerId'],
+                $row['titre'],
+                $row['artist'],
+                $row['image']
+            );
         }
-        return $items;
+    return $items;
+}
+
+
+    public function getPropositionByCandidat(int $userId): array {
+        $sql = "SELECT p.id AS propositionId, 
+                               p.dateProposition, 
+                               p.categorieId, i.id AS itemId, 
+                               i.deezerId, 
+                               i.titre, 
+                               i.artist, 
+                               i.image 
+                FROM proposition p 
+                JOIN proposition_item i ON p.itemId = i.id 
+                WHERE p.candidatId = ? 
+                ORDER BY p.dateProposition DESC";
+
+        $stmt = $this->db->prepare($sql); 
+        $stmt->execute([$userId]); 
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        $propositions = [];
+
+        foreach ($rows as $row) {
+            $item = new PropositionItem( 
+                $row['itemId'],
+                $row['deezerId'], 
+                $row['titre'], 
+                $row['artist'], 
+                $row['image'] 
+            );
+
+            $propositions[] = [ 
+                "propositionId" => $row['propositionId'], 
+                "categorieId" => $row['categorieId'], // pas sur de l'utiliter ?
+                "item" => $item 
+            ];
+        }
+        return $propositions;
     }
 }
