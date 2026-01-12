@@ -4,6 +4,7 @@ namespace service;
 require_once __DIR__ . '/Enum.php';
 require_once __DIR__ . '/VotePhase.php';
 
+use service\UserRole;
 
 class SessionManager {
     private static ?SessionManager $instance = null;
@@ -27,6 +28,16 @@ class SessionManager {
 
     public function isLogged() { 
         return isset($_SESSION['user']); 
+    }
+
+    public function isCandidat() {
+        $user = $this->getUser();
+        if ($user === null){
+            return false;
+        }
+        else {
+            return $user->getRole() == UserRole::Candidat;
+        }
     }
 
     public function setSuccessMessage(string $message) {

@@ -1,7 +1,9 @@
 <?php
 
+require_once __DIR__ . '/service/SessionManager.php';
 require_once __DIR__ . '/controller/AccueilController.php';
 require_once __DIR__ . '/controller/AProposController.php';
+require_once __DIR__ . '/controller/CandidatController.php';
 require_once __DIR__ . '/controller/CGUController.php';
 require_once __DIR__ . '/controller/ConnexionController.php';
 require_once __DIR__ . '/controller/ContactController.php';
@@ -11,8 +13,10 @@ require_once __DIR__ . '/controller/ResultatController.php';
 require_once __DIR__ . '/controller/ValidationController.php';
 require_once __DIR__ . '/controller/VoteController.php';
 
+use service\SessionManager;
 use controller\AccueilController;
 use controller\AProposController;
+use controller\CandidatController;
 use controller\CGUController;
 use controller\ConnexionController;
 use controller\ContactController;
@@ -32,11 +36,18 @@ $action = $_GET['action'] ?? 'index';
 // gestion des routes en fonction de l'url
 switch ($page) {
     case 'accueil':
+        if (SessionManager::getInstance()->isCandidat()) {
+            header("Location: index.php?page=candidat");
+        }
         $controller = new AccueilController();
         $controller->index();
         break;
     case 'aPropos':
         $controller = new AProposController();
+        $controller->index();
+        break;
+    case 'candidat':
+        $controller = new CandidatController();
         $controller->index();
         break;
     case 'cgu':

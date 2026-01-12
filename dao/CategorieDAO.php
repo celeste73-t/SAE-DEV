@@ -6,6 +6,7 @@ require_once __DIR__ . '/../model/Categorie.php';
 
 use dao\DAO;
 use PDO;
+use PDOException;
 use model\Categorie;
 
 class CategorieDAO extends DAO {
