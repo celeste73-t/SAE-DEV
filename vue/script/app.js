@@ -10,6 +10,7 @@ if (results)
     results.addEventListener("click", openValidation);
 
 document.addEventListener("click", voteRedirection);
+document.addEventListener("click", detailRedirection);
 
 function callSearchTimed() {
 
@@ -68,6 +69,25 @@ function openValidation(e) {
 
 function voteRedirection(e) { 
     const card = e.target.closest(".vote"); 
+    if (!card) return; 
+    
+    e.preventDefault(); 
+    const data = { 
+        id: card.dataset.id, 
+        categorie: card.dataset.categorie 
+    }; 
+    
+    fetch("index.php?page=vote&action=select", { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json"}, 
+        body: JSON.stringify(data) 
+    }).then(() => { 
+        window.location.href = "index.php?page=validation"; 
+    }); 
+}
+
+function detailRedirection(e) { 
+    const card = e.target.closest(".detail"); 
     if (!card) return; 
     
     e.preventDefault(); 

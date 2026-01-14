@@ -90,7 +90,7 @@ class PropositionDAO extends DAO {
 
 
     public function getNominatedPropositionsByCandidat(int $userId): array {
-        $sql = "SELECT 
+        $sql = "SELECT DISTINCT
                     p.categorieId,
                     i.id AS itemId,
                     i.deezerId,
