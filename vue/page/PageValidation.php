@@ -12,11 +12,13 @@ use service\SessionManager;
 
 class PageValidation extends Page {
     private $blocProposition;
+    private $blocInteraction;
     private $categorie;
     private $phase;
 
-    public function __construct($title, $blocProposition, $categorie, $phase) {
+    public function __construct($title, $blocProposition, $blocInteraction, $categorie, $phase) {
         $this->blocProposition = $blocProposition;
+        $this->blocInteraction = $blocInteraction;
         $this->categorie = $categorie;
         $this->phase = $phase;
         parent::__construct($title);
@@ -34,6 +36,9 @@ class PageValidation extends Page {
                     ?><a href="?page=vote&categorie=<?php echo $this->categorie->getId(); ?>">Annuler</a> <?php
                 }
                 echo '<a href="?page=validation&action=validate">Valider</a>';
+            }
+            if ($this->phase === PhaseVote::Vote2) {
+                $this->blocInteraction->render();
             }
             ?>
         </section>

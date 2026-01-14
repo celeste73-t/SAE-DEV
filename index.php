@@ -12,6 +12,7 @@ require_once __DIR__ . '/controller/PropositionController.php';
 require_once __DIR__ . '/controller/ResultatController.php';
 require_once __DIR__ . '/controller/ValidationController.php';
 require_once __DIR__ . '/controller/VoteController.php';
+require_once __DIR__ . '/controller/composant/PostController.php';
 
 use service\SessionManager;
 use controller\AccueilController;
@@ -25,6 +26,7 @@ use controller\PropositionController;
 use controller\ResultatController;
 use controller\ValidationController;
 use controller\VoteController;
+use controller\composant\PostController;
 
 session_start();
 
@@ -110,6 +112,13 @@ switch ($page) {
             $controller->index($categorie);
         }
         break;
+    case 'post':
+        $controller = new PostController();
+        if ($action === 'create') {
+            $controller->create();
+        }
+        break;
+
     // autres routes...
     default:
         echo "404 - Page non trouvée";

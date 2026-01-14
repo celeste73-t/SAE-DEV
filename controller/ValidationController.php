@@ -2,6 +2,7 @@
 namespace controller;
 
 require_once __DIR__ . '/../controller/composant/BlocPropositionController.php';
+require_once __DIR__ . '/../controller/composant/BlocInteractionController.php';
 require_once __DIR__ . '/../vue/page/PageValidation.php';
 require_once __DIR__ . '/../dao/CategorieDAO.php';
 require_once __DIR__ . '/../service/SessionManager.php';
@@ -13,6 +14,7 @@ require_once __DIR__ . '/../dao/VoteDAO.php';
 require_once __DIR__ . '/../service/VotePhase.php';
 
 use controller\composant\BlocPropositionController;
+use controller\composant\BlocInteractionController;
 use vue\page\PageValidation;
 use dao\CategorieDAO;
 use service\SessionManager;
@@ -43,7 +45,13 @@ class ValidationController {
         $blocPropositionController = new BlocPropositionController($proposition, $categorie);
         $blocProposition = $blocPropositionController->build();
 
-        $page = new PageValidation("Validation", $blocProposition, $categorie, $phase);
+        $propositionDAO = new PropositionDAO();
+        $item = $propositionDAO->findPropositionByDeezerId($proposition->getIdDeezer());
+
+        $blocInteractionController = new BlocInteractionController($item['id']);
+        $blocInteraction = $blocInteractionController->build();
+
+        $page = new PageValidation("Validation", $blocProposition, $blocInteraction, $categorie, $phase);
         $page->render(); // le contrôleur déclenche l’affichage
     }
 
