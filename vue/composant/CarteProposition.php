@@ -19,7 +19,7 @@ class CarteProposition extends Composant {
 
     protected function renderContent() {
         ?>
-            <a href="#" class="detail" data-id="<?= $this->proposition->getIdDeezer() ?>" data-categorie="<?= $this->categorieId ?>">
+            <a href="#" class="vote" data-id="<?= $this->proposition->getIdDeezer() ?>" data-categorie="<?= $this->categorieId ?>">
                 <img src="<?php echo $this->proposition->getImage(); ?>" alt="">
                 <h3><?php echo $this->proposition->getTitre(); ?></h3>
                 <p><?php echo $this->proposition->getArtiste(); ?></p>
