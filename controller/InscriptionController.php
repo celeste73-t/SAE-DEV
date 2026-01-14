@@ -39,7 +39,7 @@ class InscriptionController {
             return;
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $hashedPassword = password_hash($password, algo: PASSWORD_BCRYPT);
 
         $user = new User(
             null,

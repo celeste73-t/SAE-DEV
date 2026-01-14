@@ -4,11 +4,13 @@ namespace controller;
 require_once __DIR__ . '/../service/SessionManager.php';
 require_once __DIR__ . '/../vue/page/PageCandidat.php';
 require_once __DIR__ . '/../dao/PropositionDAO.php';
+require_once __DIR__ . '/../dao/CategorieDAO.php';
 require_once __DIR__ . '/../service/VotePhase.php';
 
 use service\SessionManager;
 use vue\page\PageCandidat;
 use dao\PropositionDAO;
+use dao\CategorieDAO;
 use service\VotePhase;
 
 class CandidatController {
@@ -21,9 +23,19 @@ class CandidatController {
         }
 
         $propositionDAO = new PropositionDAO(); 
-        $propositions = $propositionDAO->getPropositionByCandidat($session->getUser()->getId());
+        $propositionsRaw = $propositionDAO->getNominatedPropositionsByCandidat($session->getUser()->getId());
 
-        $page = new PageCandidat("Espace Candidat", $phase, $propositions);
+        $categorieDAO = new CategorieDAO();
+
+        $propositions = [];
+        $categories = [];
+        foreach ($propositionsRaw as $entry) {
+            $propositions[] = $entry["propositionItem"];
+
+            $categories[] = $categorieDAO->findById($entry['categorieId']);
+        }
+
+        $page = new PageCandidat("Espace Candidat", $phase, $propositions, $categories);
         $page->render(); // le contrôleur déclenche l’affichage
     }
 }

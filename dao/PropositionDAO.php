@@ -6,6 +6,7 @@ require_once __DIR__ . '/../model/PropositionItem.php';
 require_once __DIR__ . '/../service/Enum.php';
 
 use dao\DAO;
+use model\Categorie;
 use PDO;
 use model\PropositionItem;
 
@@ -88,39 +89,39 @@ class PropositionDAO extends DAO {
 }
 
 
-    public function getPropositionByCandidat(int $userId): array {
-        $sql = "SELECT p.id AS propositionId, 
-                               p.dateProposition, 
-                               p.categorieId, i.id AS itemId, 
-                               i.deezerId, 
-                               i.titre, 
-                               i.artist, 
-                               i.image 
-                FROM proposition p 
-                JOIN proposition_item i ON p.itemId = i.id 
-                WHERE p.candidatId = ? 
-                ORDER BY p.dateProposition DESC";
+    public function getNominatedPropositionsByCandidat(int $userId): array {
+        $sql = "SELECT 
+                    p.categorieId,
+                    i.id AS itemId,
+                    i.deezerId,
+                    i.titre,
+                    i.artist,
+                    i.image
+                FROM utilisateur u
+                JOIN candidat c ON c.utilisateurId = u.id
+                JOIN proposition p ON p.candidatId = c.id
+                JOIN proposition_item i ON p.itemId = i.id
+                WHERE u.id = ?
+                ORDER BY p.categorieId ASC, p.dateProposition DESC";
 
-        $stmt = $this->db->prepare($sql); 
-        $stmt->execute([$userId]); 
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-        $propositions = [];
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(params: [$userId]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = [];
 
         foreach ($rows as $row) {
-            $item = new PropositionItem( 
-                $row['itemId'],
-                $row['deezerId'], 
-                $row['titre'], 
-                $row['artist'], 
-                $row['image'] 
-            );
-
-            $propositions[] = [ 
-                "propositionId" => $row['propositionId'], 
-                "categorieId" => $row['categorieId'], // pas sur de l'utiliter ?
-                "item" => $item 
+            $item = new PropositionItem($row['itemId'], 
+                                        $row['deezerId'], 
+                                        $row['titre'], 
+                                        $row['artist'], 
+                                        $row['image']);
+            
+            $result[] = [
+                'categorieId' => $row['categorieId'],
+                'propositionItem'=> $item
             ];
         }
-        return $propositions;
+        return $result;
     }
 }
