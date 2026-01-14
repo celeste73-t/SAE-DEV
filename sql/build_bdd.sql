@@ -238,11 +238,11 @@ CREATE TABLE IF NOT EXISTS `bdd_sae`.`Commentaire` (
   `contenu` VARCHAR(45) NOT NULL,
   `utilisateurId` INT NOT NULL,
   `PostId` INT NULL,
-  `commentauireId` INT NULL,
+  `commentaireId` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Commentaire_utilisateur1_idx` (`utilisateurId` ASC) VISIBLE,
   INDEX `fk_Commentaire_Post1_idx` (`PostId` ASC) VISIBLE,
-  INDEX `fk_Commentaire_Commentaire1_idx` (`commentauireId` ASC) VISIBLE,
+  INDEX `fk_Commentaire_Commentaire1_idx` (`commentaireId` ASC) VISIBLE,
   CONSTRAINT `fk_Commentaire_utilisateur1`
     FOREIGN KEY (`utilisateurId`)
     REFERENCES `bdd_sae`.`utilisateur` (`id`)

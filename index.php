@@ -13,6 +13,7 @@ require_once __DIR__ . '/controller/ResultatController.php';
 require_once __DIR__ . '/controller/ValidationController.php';
 require_once __DIR__ . '/controller/VoteController.php';
 require_once __DIR__ . '/controller/composant/PostController.php';
+require_once __DIR__ . '/controller/composant/CommentaireController.php';
 
 use service\SessionManager;
 use controller\AccueilController;
@@ -27,6 +28,7 @@ use controller\ResultatController;
 use controller\ValidationController;
 use controller\VoteController;
 use controller\composant\PostController;
+use controller\composant\CommentaireController;
 
 session_start();
 
@@ -114,6 +116,12 @@ switch ($page) {
         break;
     case 'post':
         $controller = new PostController();
+        if ($action === 'create') {
+            $controller->create();
+        }
+        break;
+    case 'commentaire':
+        $controller = new CommentaireController();
         if ($action === 'create') {
             $controller->create();
         }
