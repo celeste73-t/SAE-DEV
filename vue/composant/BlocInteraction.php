@@ -9,10 +9,12 @@ use service\SessionManager;
 
 class BlocInteraction extends Composant {
     private $propositionId;
+    private $postsViews;
 
-    public function __construct($propositionId) {
+    public function __construct($propositionId, $postsViews) {
         parent::__construct("blocInteraction");
         $this->propositionId = $propositionId;
+        $this->postsViews = $postsViews;
     }
 
     protected function renderContent() {
@@ -32,7 +34,11 @@ class BlocInteraction extends Composant {
             <?php } ?>
 
             <div class="posts">
-                <!-- Ici tu affiches les posts existants -->
+            <?php 
+                foreach ($this->postsViews as $postView) {
+                    $postView->render();
+                }
+            ?>
             </div>
 
         </div>
