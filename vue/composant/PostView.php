@@ -17,8 +17,22 @@ class PostView extends Composant {
     }
 
     protected function renderContent() {
-        echo $this->auteur . "<br>";
-        echo $this->post->getTitre() . "<br>";
-        echo $this->post->getContenu();
+        ?>
+        <div class="post-header">
+            <strong><?php echo $this->auteur ?></strong>
+        </div>
+
+        <h3><?php echo $this->post->getTitre() ?></h3>
+
+        <p><?php echo $this->post->getContenu() ?></p>
+        <form action="index.php?page=commentaire&action=create" method="POST" class="form-post">
+            <input type="hidden" name="postId" value="<?= $this->post->getId() ?>">
+
+            <label>Comment</label>
+            <input type="text" name="contenu" required>
+
+            <button type="submit">Publier</button>
+        </form>
+        <?php
     }
 }

@@ -18,7 +18,6 @@ class BlocInteraction extends Composant {
     }
 
     protected function renderContent() {
-        echo "proposition: ". $this->propositionId;
         if (SessionManager::getInstance()->isCandidat()){ ?>
                 <form action="index.php?page=post&action=create" method="POST" class="form-post">
                     <input type="hidden" name="propositionId" value="<?= $this->propositionId ?>">
