@@ -11,10 +11,12 @@ use service\SessionManager;
 class PostView extends Composant {
     private Post $post;
     private string $auteur;
+    private $commentaires;
     
-    public function __construct(Post $post, string $auteur) {
+    public function __construct(Post $post, string $auteur, array $commentaires) {
         $this->post = $post;
         $this->auteur = $auteur;
+        $this->commentaires = $commentaires;
         parent::__construct("post");
     }
 
@@ -41,6 +43,9 @@ class PostView extends Composant {
             <button type="submit">Publier</button>
         </form>
         <?php
+            foreach ($this->commentaires as $commentaire) {
+                $commentaire->render();
+            }
         }
     }
 }
