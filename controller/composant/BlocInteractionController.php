@@ -20,8 +20,8 @@ class BlocInteractionController {
         
         $postsViews = []; 
         foreach ($postsData as $row) { 
-            $postController = new PostController($row['post'], $row['auteur']);
-            $postsViews[] =  $postController->build();
+            $postController = new PostController();
+            $postsViews[] =  $postController->build($row['post'], $row['auteur']);
         }
         return new BlocInteraction($this->propositionId, $postsViews);
     }

@@ -14,24 +14,17 @@ use model\Post;
 use vue\composant\PostView;
 
 class PostController {
-    private $post;
-    private $auteur;
 
-    public function __construct(Post $post, string $auteur) {
-        $this->post = $post;
-        $this->auteur = $auteur;
-    }
-
-    public function build() {
+    public function build(Post $post, string $auteur) {
         $commentaireDAO = new CommentaireDAO(); 
-        $commentairesData = $commentaireDAO->getCommentaireByPostId($this->post->getId());
+        $commentairesData = $commentaireDAO->getCommentaireByPostId($post->getId());
         
         $commentairesViews = []; 
         foreach ($commentairesData as $row) { 
-            $postController = new CommentaireController($row['commentaire'],   $row['auteur']);
-            $commentairesViews[] =  $postController->build();
+            $postController = new CommentaireController();
+            $commentairesViews[] =  $postController->build($row['commentaire'],   $row['auteur']);
         }
-        return new PostView($this->post, $this->auteur, $commentairesViews);
+        return new PostView($post, $auteur, $commentairesViews);
     }
 
     public function create() {

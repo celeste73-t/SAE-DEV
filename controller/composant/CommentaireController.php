@@ -10,16 +10,9 @@ use model\Commentaire;
 use vue\composant\CommentaireView;
 
 class CommentaireController {
-    private Commentaire $commentaire;
-    private string $auteur;
 
-    public function __construct(Commentaire $commentaire, string $auteur) {
-        $this->commentaire = $commentaire;
-        $this->auteur = $auteur;
-    }
-
-    public function build() {
-        return new CommentaireView($this->commentaire, $this->auteur);
+    public function build(Commentaire $commentaire, string $auteur) {
+        return new CommentaireView($commentaire, $auteur);
     }
 
     public function create() {
