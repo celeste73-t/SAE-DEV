@@ -1,12 +1,11 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../dao/DAO.php';
-require_once __DIR__ . '/../model/PropositionItem.php';
-require_once __DIR__ . '/../service/Enum.php';
+require_once 'dao/DAO.php';
+require_once 'model/PropositionItem.php';
+require_once 'service/Enum.php';
 
 use dao\DAO;
-use model\Categorie;
 use PDO;
 use model\PropositionItem;
 

@@ -1,7 +1,7 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue\page\PageCGU.php';
+require_once 'vue/page/PageCGU.php';
 
 use vue\page\PageCGU;
 

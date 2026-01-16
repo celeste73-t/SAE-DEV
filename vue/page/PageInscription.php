@@ -1,7 +1,7 @@
 <?php
 namespace vue\page;
 
-require_once __DIR__ . '/Page.php';
+require_once 'vue/page/Page.php';
 
 class PageInscription extends Page {
     private $errorMessage;

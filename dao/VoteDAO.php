@@ -1,13 +1,10 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../dao/DAO.php';
-require_once __DIR__ . '/../model/Categorie.php';
-require_once __DIR__ . '/../model/PropositionItem.php';
+require_once 'dao/DAO.php';
+require_once 'model/PropositionItem.php';
 
 use dao\DAO;
-use PDO;
-use model\Categorie;
 use model\PropositionItem;
 
 class VoteDAO extends DAO {

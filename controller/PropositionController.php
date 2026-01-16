@@ -1,11 +1,11 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue/page/PageProposition.php';
-require_once __DIR__ . '/../dao/CategorieDAO.php';
-require_once __DIR__ . '/../service/ApiAcces.php';
-require_once __DIR__ . '/../service/Enum.php';
-require_once __DIR__ . '/../model/PropositionItem.php';
+require_once 'vue/page/PageProposition.php';
+require_once 'dao/CategorieDAO.php';
+require_once 'service/ApiAcces.php';
+require_once 'service/Enum.php';
+require_once 'model/PropositionItem.php';
 
 use vue\page\PageProposition;
 use dao\CategorieDAO;

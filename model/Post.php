@@ -1,14 +1,6 @@
 <?php
 namespace model;
 
-// Importation des dépendances
-require_once __DIR__ . '/User.php';
-
-/**
- * Cette classe représente une publication (Post) générale, 
- * basée sur la référence 'postId' trouvée dans la table 'commentaire'.
- * (Structure déduite)
- */
 class Post {
     private ?int $id;
     private string $titre;

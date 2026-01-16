@@ -1,12 +1,11 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../dao/DAO.php';
-require_once __DIR__ . '/../model/Edition.php';
+require_once 'dao/DAO.php';
+require_once 'model/Edition.php';
 
 use dao\DAO;
 use PDO;
-use PDOException;
 use Exception;
 use model\Edition;
 use DateTime;

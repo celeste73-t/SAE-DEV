@@ -1,10 +1,10 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue/page/PageInscription.php';
-require_once __DIR__ . '/../dao/UserDAO.php';
-require_once __DIR__ . '/../model/User.php';
-require_once __DIR__ . '/../service/Enum.php';
+require_once 'vue/page/PageInscription.php';
+require_once 'dao/UserDAO.php';
+require_once 'model/User.php';
+require_once 'service/Enum.php';
 
 use vue\page\PageInscription;
 use dao\UserDAO;

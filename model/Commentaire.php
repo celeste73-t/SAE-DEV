@@ -1,10 +1,6 @@
 <?php
 namespace model;
 
-// Importation des dépendances
-require_once __DIR__ . '/User.php';
-require_once __DIR__ . '/Post.php';
-
 class Commentaire {
     private ?int $id;
     private string $contenu;

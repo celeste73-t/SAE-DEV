@@ -1,8 +1,8 @@
 <?php
 namespace service;
 
-require_once __DIR__ . '/Enum.php';
-require_once __DIR__ . '/VotePhase.php';
+require_once 'service/Enum.php';
+require_once 'service/VotePhase.php';
 
 use service\UserRole;
 

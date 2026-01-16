@@ -1,7 +1,8 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue\page\PageAPropos.php';
+require_once 'vue/page/PageAPropos.php';
+
 use vue\page\PageAPropos;
 
 class AProposController {

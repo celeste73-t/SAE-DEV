@@ -1,7 +1,7 @@
 <?php
 namespace model;
 
-require_once __DIR__ . '/PropositionItem.php';
+require_once 'model/PropositionItem.php';
 
 use model\PropositionItem;
 

@@ -1,9 +1,9 @@
 <?php
 namespace vue\composant;
 
-require_once __DIR__ . '/Composant.php';
-require_once __DIR__ . '/../../model/Post.php';
-require_once __DIR__ . '/../../service/SessionManager.php';
+require_once 'vue/composant/Composant.php';
+require_once 'model/Post.php';
+require_once 'service/SessionManager.php';
 
 use model\Post;
 use service\SessionManager;

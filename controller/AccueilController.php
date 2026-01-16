@@ -1,12 +1,11 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue\page\PageAccueil.php';
-require_once __DIR__ . '/../dao/CategorieDAO.php';
-require_once __DIR__ . '/../dao/EditionDAO.php';
+require_once 'vue/page/PageAccueil.php';
+require_once 'dao/CategorieDAO.php';
+require_once 'dao/EditionDAO.php';
 
 use vue\page\PageAccueil;
-use service\SessionManager;
 use service\VotePhase;
 use dao\CategorieDAO;
 use dao\EditionDAO;

@@ -1,7 +1,7 @@
 <?php
 namespace vue\composant;
 
-require_once __DIR__ . '/Composant.php';
+require_once 'vue/composant/Composant.php';
 
 class Footer extends Composant {
     protected function renderContent() {

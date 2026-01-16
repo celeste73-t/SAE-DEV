@@ -1,15 +1,14 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue\page\PageConnexion.php';
-require_once __DIR__ . '/../dao/UserDAO.php';
-require_once __DIR__ . '/../service/SessionManager.php';
-require_once __DIR__ . '/../service/Enum.php';
+require_once 'vue/page/PageConnexion.php';
+require_once 'dao/UserDAO.php';
+require_once 'service/SessionManager.php';
+require_once 'service/Enum.php';
 
 use vue\page\PageConnexion;
 use dao\UserDAO;
 use service\SessionManager;
-use service\UserRole;
 
 class ConnexionController {
     private $errorMessage = null;

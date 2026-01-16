@@ -1,7 +1,7 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../dao/DAO.php';
+require_once 'dao/DAO.php';
 
 use dao\DAO;
 

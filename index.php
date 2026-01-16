@@ -1,19 +1,19 @@
 <?php
 
-require_once __DIR__ . '/service/SessionManager.php';
-require_once __DIR__ . '/controller/AccueilController.php';
-require_once __DIR__ . '/controller/AProposController.php';
-require_once __DIR__ . '/controller/CandidatController.php';
-require_once __DIR__ . '/controller/CGUController.php';
-require_once __DIR__ . '/controller/ConnexionController.php';
-require_once __DIR__ . '/controller/ContactController.php';
-require_once __DIR__ . '/controller/InscriptionController.php';
-require_once __DIR__ . '/controller/PropositionController.php';
-require_once __DIR__ . '/controller/ResultatController.php';
-require_once __DIR__ . '/controller/ValidationController.php';
-require_once __DIR__ . '/controller/VoteController.php';
-require_once __DIR__ . '/controller/composant/PostController.php';
-require_once __DIR__ . '/controller/composant/CommentaireController.php';
+require_once 'service/SessionManager.php';
+require_once 'controller/AccueilController.php';
+require_once 'controller/AProposController.php';
+require_once 'controller/CandidatController.php';
+require_once 'controller/CGUController.php';
+require_once 'controller/ConnexionController.php';
+require_once 'controller/ContactController.php';
+require_once 'controller/InscriptionController.php';
+require_once 'controller/PropositionController.php';
+require_once 'controller/ResultatController.php';
+require_once 'controller/ValidationController.php';
+require_once 'controller/VoteController.php';
+require_once 'controller/composant/PostController.php';
+require_once 'controller/composant/CommentaireController.php';
 
 use service\SessionManager;
 use controller\AccueilController;

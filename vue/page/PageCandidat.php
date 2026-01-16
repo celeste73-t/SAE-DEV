@@ -1,14 +1,12 @@
 <?php
 namespace vue\page;
 
-require_once __DIR__ . '/Page.php';
-require_once __DIR__ . '/../../service/Enum.php';
-require_once __DIR__ . '/../composant/carteCandidat.php';
-require_once __DIR__ . '/../../model/Categorie.php';
+require_once 'vue/page/Page.php';
+require_once 'service/Enum.php';
+require_once 'vue/composant/carteCandidat.php';
 
 use service\PhaseVote;
 use vue\composant\carteCandidat;
-use model\Categorie;
 
 class PageCandidat extends Page {
     private PhaseVote $phase;

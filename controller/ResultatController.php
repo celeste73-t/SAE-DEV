@@ -1,9 +1,9 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue/page/PageResultat.php';
-require_once __DIR__ . '/../dao/CategorieDAO.php';
-require_once __DIR__ . '/../dao/ResultatDAO.php';
+require_once 'vue/page/PageResultat.php';
+require_once 'dao/CategorieDAO.php';
+require_once 'dao/ResultatDAO.php';
 
 use vue\page\PageResultat;
 use dao\CategorieDAO;

@@ -1,8 +1,8 @@
 <?php
 namespace controller\composant;
 
-require_once __DIR__ . '/../../vue/composant/BlocInteraction.php';
-require_once __DIR__ . '/../../dao/PostDAO.php';
+require_once 'vue/composant/BlocInteraction.php';
+require_once 'dao/PostDAO.php';
 
 use vue\composant\BlocInteraction;
 use dao\PostDAO;

@@ -1,17 +1,17 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../controller/composant/BlocPropositionController.php';
-require_once __DIR__ . '/../controller/composant/BlocInteractionController.php';
-require_once __DIR__ . '/../vue/page/PageValidation.php';
-require_once __DIR__ . '/../dao/CategorieDAO.php';
-require_once __DIR__ . '/../service/SessionManager.php';
-require_once __DIR__ . '/../service/Enum.php';
-require_once __DIR__ . '/../dao/UserCategorieStatusDAO.php';
-require_once __DIR__ . '/../dao/EditionDAO.php';
-require_once __DIR__ . '/../dao/PropositionDAO.php';
-require_once __DIR__ . '/../dao/VoteDAO.php';
-require_once __DIR__ . '/../service/VotePhase.php';
+require_once 'controller/composant/BlocPropositionController.php';
+require_once 'controller/composant/BlocInteractionController.php';
+require_once 'vue/page/PageValidation.php';
+require_once 'dao/CategorieDAO.php';
+require_once 'service/SessionManager.php';
+require_once 'service/Enum.php';
+require_once 'dao/UserCategorieStatusDAO.php';
+require_once 'dao/EditionDAO.php';
+require_once 'dao/PropositionDAO.php';
+require_once 'dao/VoteDAO.php';
+require_once 'service/VotePhase.php';
 
 use controller\composant\BlocPropositionController;
 use controller\composant\BlocInteractionController;

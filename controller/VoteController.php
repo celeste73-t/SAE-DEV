@@ -1,10 +1,10 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../vue/page/PageVote.php';
-require_once __DIR__ . '/../dao/CategorieDAO.php';
-require_once __DIR__ . '/../dao/PropositionDAO.php';
-require_once __DIR__ . '/../model/PropositionItem.php';
+require_once 'vue/page/PageVote.php';
+require_once 'dao/CategorieDAO.php';
+require_once 'dao/PropositionDAO.php';
+require_once 'model/PropositionItem.php';
 
 use vue\page\PageVote;
 use dao\CategorieDAO;

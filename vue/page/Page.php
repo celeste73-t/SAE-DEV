@@ -1,12 +1,10 @@
 <?php
 namespace vue\page;
 
-require_once __DIR__ . '/../composant/Footer.php';
-require_once __DIR__ . '/../composant/Header.php';
-require_once __DIR__ . '/../../service/SessionManager.php';
+require_once 'vue/composant/Footer.php';
+require_once 'vue/composant/Header.php';
+require_once 'service/SessionManager.php';
 
-use service\UserRole;
-use service\PhaseVote;
 use service\SessionManager;
 use vue\composant\Header;
 use vue\composant\Footer;

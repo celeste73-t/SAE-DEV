@@ -1,7 +1,7 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../service/ConnectionBDD.php';
+require_once 'service/ConnectionBDD.php';
 
 use service\ConnectionBDD;
 use PDO;

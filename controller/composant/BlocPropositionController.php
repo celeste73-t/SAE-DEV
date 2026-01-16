@@ -1,7 +1,7 @@
 <?php
 namespace controller\composant;
 
-require_once __DIR__ . '/../../vue/composant/BlocProposition.php';
+require_once 'vue/composant/BlocProposition.php';
 
 use vue\composant\BlocProposition;
 

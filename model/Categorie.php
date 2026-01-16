@@ -1,7 +1,7 @@
 <?php
 namespace model;
 
-require_once __DIR__ . '/../service/Enum.php';
+require_once 'service/Enum.php';
 
 use service\CategorieType;
 

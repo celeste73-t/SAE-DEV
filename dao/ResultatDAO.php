@@ -1,9 +1,9 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../dao/DAO.php';
-require_once __DIR__ . '/../model/PropositionItem.php';
-require_once __DIR__ . '/../model/Resultat.php';
+require_once 'dao/DAO.php';
+require_once 'model/PropositionItem.php';
+require_once 'model/Resultat.php';
 
 use dao\DAO;
 use PDO;

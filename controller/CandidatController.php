@@ -1,12 +1,12 @@
 <?php
 namespace controller;
 
-require_once __DIR__ . '/../service/SessionManager.php';
-require_once __DIR__ . '/../vue/page/PageCandidat.php';
-require_once __DIR__ . '/../dao/PropositionDAO.php';
-require_once __DIR__ . '/../dao/CategorieDAO.php';
-require_once __DIR__ . '/../model/PropositionItem.php';
-require_once __DIR__ . '/../service/VotePhase.php';
+require_once 'service/SessionManager.php';
+require_once 'vue/page/PageCandidat.php';
+require_once 'dao/PropositionDAO.php';
+require_once 'dao/CategorieDAO.php';
+require_once 'model/PropositionItem.php';
+require_once 'service/VotePhase.php';
 
 use service\SessionManager;
 use vue\page\PageCandidat;

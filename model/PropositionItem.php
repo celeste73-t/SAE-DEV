@@ -1,8 +1,6 @@
 <?php
 namespace model;
 
-require_once __DIR__ . '/User.php';
-
 class PropositionItem {
     private ?int $id;
     private int $idDeezer;

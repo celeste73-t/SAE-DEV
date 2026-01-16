@@ -1,12 +1,10 @@
 <?php
 namespace service;
 
-require_once __DIR__ . '/../dao/EditionDAO.php';
-require_once __DIR__ . '/../model/Edition.php';
-require_once __DIR__ . '/Enum.php';
+require_once 'dao/EditionDAO.php';
+require_once 'service/Enum.php';
 
 use dao\EditionDAO;
-use model\Edition;
 use DateTime;
 
 class VotePhase {

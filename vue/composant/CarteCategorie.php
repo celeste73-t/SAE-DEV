@@ -1,8 +1,8 @@
 <?php
 namespace vue\composant;
 
-require_once __DIR__ . '/Composant.php';
-require_once __DIR__ . '/../../service/Enum.php';
+require_once 'vue/composant/Composant.php';
+require_once 'service/Enum.php';
 
 use service\PhaseVote;
 use vue\composant\Composant;

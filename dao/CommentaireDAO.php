@@ -1,8 +1,8 @@
 <?php
 namespace dao;
 
-require_once __DIR__ . '/../dao/DAO.php';
-require_once __DIR__ . '/../model/Commentaire.php';
+require_once 'dao/DAO.php';
+require_once 'model/Commentaire.php';
 
 use dao\DAO;
 use PDO;

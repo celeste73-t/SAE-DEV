@@ -1,7 +1,7 @@
 <?php
 namespace vue\page;
 
-require_once __DIR__ . '/Page.php';
+require_once 'vue/page/Page.php';
 
 class PageConnexion extends Page {
     private $errorMessage;

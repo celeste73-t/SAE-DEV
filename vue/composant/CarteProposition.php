@@ -1,11 +1,10 @@
 <?php
 namespace vue\composant;
 
-require_once __DIR__ . '/../../model/PropositionItem.php';
-require_once __DIR__ . '/Composant.php';
+require_once 'vue/composant/Composant.php';
+require_once 'model/PropositionItem.php';
 
 use model\PropositionItem;
-use vue\composant\Composant;
 
 class CarteProposition extends Composant {
     private PropositionItem $proposition;

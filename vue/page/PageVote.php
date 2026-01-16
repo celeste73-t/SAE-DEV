@@ -1,9 +1,9 @@
 <?php
 namespace vue\page;
 
-require_once __DIR__ . '/Page.php';
-require_once __DIR__ . '/../../model/Categorie.php';
-require_once __DIR__ . '/../composant/CarteProposition.php';
+require_once 'vue/page/Page.php';
+require_once 'model/Categorie.php';
+require_once 'vue/composant/CarteProposition.php';
 
 use model\Categorie;
 use vue\page\Page;

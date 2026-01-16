@@ -1,10 +1,9 @@
 <?php
 namespace vue\page;
 
-require_once __DIR__ . '/Page.php';
-require_once __DIR__ . '/../../model/PropositionItem.php';
-require_once __DIR__ . '/../../service/Enum.php';
-require_once __DIR__ . '/../../service/SessionManager.php';
+require_once 'vue/page/Page.php';
+require_once 'service/Enum.php';
+require_once 'service/SessionManager.php';
 
 
 use service\PhaseVote;
