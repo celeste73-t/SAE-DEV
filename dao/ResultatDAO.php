@@ -4,13 +4,20 @@ namespace dao;
 require_once 'dao/DAO.php';
 require_once 'model/PropositionItem.php';
 require_once 'model/Resultat.php';
+require_once 'interfaces/resultat/IResultatReader.php';
+require_once 'interfaces/resultat/IResultatWriter.php';
 
 use dao\DAO;
+use interfaces\resultat\IResultatReader;
+use interfaces\resultat\IResultatWriter;
 use PDO;
 use model\PropositionItem;
 use model\Resultat;
 
-class ResultatDAO extends DAO {
+class ResultatDAO extends DAO implements IResultatReader, IResultatWriter{
+
+    // Read
+
     public function getResultat(int $categorieId) : array {
         $sql = "SELECT p.itemId, COUNT(v.id) AS nbVote 
                 FROM vote v 
@@ -53,7 +60,9 @@ class ResultatDAO extends DAO {
         return $resultats; 
     }
 
-    private function archiveResultat(Resultat $resultat, int $categorieId, int $editionId): int {
+    // Write
+
+    public function archiveResultat(Resultat $resultat, int $categorieId, int $editionId): int {
         $sql = "INSERT INTO resultat (nbVotes, rang, editionId, itemId, categorieId) 
                 VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);

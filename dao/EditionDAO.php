@@ -3,18 +3,19 @@ namespace dao;
 
 require_once 'dao/DAO.php';
 require_once 'model/Edition.php';
+require_once 'interfaces/edition/IEditionReader.php';
 
 use dao\DAO;
 use PDO;
 use Exception;
 use model\Edition;
 use DateTime;
+use interfaces\edition\IEditionReader;
 
-class EditionDAO extends DAO {
-    /**
-     * Récupère toutes les données de la table 'edition'.
-     * @return array Les données de la table ou un tableau vide.
-     */
+class EditionDAO extends DAO implements IEditionReader {
+    
+    // Read
+
     public function getActive(): Edition {
         try {
             $query = $this->db->query("SELECT * FROM edition WHERE active = 1");

@@ -3,13 +3,18 @@ namespace dao;
 
 require_once 'dao/DAO.php';
 require_once 'model/Categorie.php';
+require_once 'interfaces/categorie/ICategorieReader.php';
 
 use dao\DAO;
 use PDO;
 use PDOException;
 use model\Categorie;
+use interfaces\categorie\ICategorieReader;
 
-class CategorieDAO extends DAO {
+class CategorieDAO extends DAO implements ICategorieReader{
+
+    // Read
+
     public function findById(int $id): ?Categorie {
         try {
             $query = "SELECT * FROM categorie WHERE id = :id LIMIT 1";
@@ -31,26 +36,8 @@ class CategorieDAO extends DAO {
             return null;
         }
     }
-    
-    public function getAllCategories(): array {
-        try {
-            $query = $this->db->query("SELECT * FROM categorie");
-            $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            $categories = [];
-            foreach ($rows as $row) {
-                $categories[] = Categorie::fromDatabaseArray($row);
-            }
-
-            return $categories;
-
-        } catch (PDOException $e) {
-            error_log("Erreur dans CategorieDAO::getAllCategories : " . $e->getMessage());
-            return [];
-        }
-    }
-
-    public function getCategoriesForEdition(int $editionId): array {
+    public function getCategoriesFromEdition(int $editionId): array {
         try {
             $sql = "SELECT c.* 
                     FROM categorie c 

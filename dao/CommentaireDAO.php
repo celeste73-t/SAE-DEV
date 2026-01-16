@@ -3,20 +3,20 @@ namespace dao;
 
 require_once 'dao/DAO.php';
 require_once 'model/Commentaire.php';
+require_once 'interfaces/commentaire/ICommentaireReader.php';
+require_once 'interfaces/commentaire/ICommentaireWriter.php';
 
 use dao\DAO;
 use PDO;
 use model\Commentaire;
+use interfaces\commentaire\ICommentaireReader;
+use interfaces\commentaire\ICommentaireWriter;
 
-class CommentaireDAO extends DAO {
-    public function createCommentaire(Commentaire $commentaire, int $utilisateurId, ?int $postId, ?int $commentaireId) {
-        $sql = "INSERT INTO commentaire (contenu, utilisateurId, postId, commentaireId) 
-                VALUES (?, ?, ?, ?)"; 
-        $stmt = $this->db->prepare($sql); 
-        $stmt->execute([$commentaire->getContenu(), $utilisateurId, $postId, $commentaireId]);
-    }
+class CommentaireDAO extends DAO implements ICommentaireReader, ICommentaireWriter {
 
-    public function getCommentaireByPostId(int $postId) {
+    // Read
+
+    public function getCommentaireByPostId(int $postId): array {
         $sql = "SELECT c.id, c.contenu, u.nom AS auteur 
                 FROM commentaire c 
                 JOIN utilisateur u ON c.utilisateurId = u.id 
@@ -57,5 +57,14 @@ class CommentaireDAO extends DAO {
         }
         
         return $result; 
+    }
+
+    // Write
+
+    public function createCommentaire(Commentaire $commentaire, int $utilisateurId, ?int $postId, ?int $commentaireId): void {
+        $sql = "INSERT INTO commentaire (contenu, utilisateurId, postId, commentaireId) 
+                VALUES (?, ?, ?, ?)"; 
+        $stmt = $this->db->prepare($sql); 
+        $stmt->execute([$commentaire->getContenu(), $utilisateurId, $postId, $commentaireId]);
     }
 }

@@ -4,19 +4,21 @@ namespace dao;
 require_once 'dao/DAO.php';
 require_once 'model/User.php';
 require_once 'service/Enum.php';
+require_once 'interfaces/user/IUserReader.php';
+require_once 'interfaces/user/IUserWriter.php';
 
 use dao\DAO;
+use interfaces\user\IUserReader;
+use interfaces\user\IUserWriter;
 use PDO;
 use PDOException;
 use model\User;
 use service\UserRole;
 
-class UserDAO extends DAO {
-    /**
-     * Recherche un utilisateur par son adresse email.
-     * @param string $email L'adresse email de l'utilisateur à rechercher.
-     * @return User|null L'objet User s'il est trouvé, sinon null.
-     */
+class UserDAO extends DAO implements IUserReader, IUserWriter {
+    
+    // Read
+
     public function findByEmail(string $email): ?User {
         try {
             // On prépare la requête pour éviter les injections SQL
@@ -56,6 +58,8 @@ class UserDAO extends DAO {
         }
     }
 
+    // Write
+
     public function newUser(User $user): bool {
         try {
             $query = "INSERT INTO Utilisateur (nom, email, motDePasse, userType) VALUES (:nom, :email, :mdp, :type)";
@@ -79,6 +83,8 @@ class UserDAO extends DAO {
             return false;
         }
     }
+
+    // Private
 
     private function isCandidat(int $userId): bool {
         $query = $this->db->prepare("SELECT 1 FROM candidat WHERE utilisateurId = :id LIMIT 1");

@@ -3,12 +3,17 @@ namespace dao;
 
 require_once 'dao/DAO.php';
 require_once 'model/PropositionItem.php';
+require_once 'interfaces/vote/IVoteReader.php';
 
 use dao\DAO;
+use interfaces\vote\IVoteReader;
 use model\PropositionItem;
 
-class VoteDAO extends DAO {
-    public function addVote(PropositionItem $proposition) {
+class VoteDAO extends DAO implements IVoteReader {
+
+    // Read
+
+    public function addVote(PropositionItem $proposition): void {
         $propositionDAO = new PropositionDAO();
 
         $item = $propositionDAO->findPropositionByDeezerId($proposition->getIdDeezer());

@@ -3,20 +3,20 @@ namespace dao;
 
 require_once 'dao/DAO.php';
 require_once 'model/Post.php';
+require_once 'interfaces/post/IPostReader.php';
+require_once 'interfaces/post/IPostWriter.php';
 
 use PDO;
 use dao\DAO;
 use model\Post;
+use interfaces\post\IPostReader;
+use interfaces\post\IPostWriter;
 
-class PostDAO extends DAO {
-    public function createPost(Post $post, int $propositionId) {
-        $sql = "INSERT INTO Post (titre, contenu, propositionId) VALUES (?, ?, ?)"; 
-        
-        $stmt = $this->db->prepare($sql); 
-        $stmt->execute([$post->getTitre(), $post->getContenu(), $propositionId]);
-    }
+class PostDAO extends DAO implements IPostReader, IPostWriter {
 
-    public function getPostByPropositionId(int $propositionId) {
+    // Read
+
+    public function getPostByPropositionId(int $propositionId): array {
         $sql = "SELECT 
                     p.id AS id,
                     p.titre,
@@ -48,5 +48,14 @@ class PostDAO extends DAO {
         }
 
         return $result;
+    }
+
+    // Write
+
+    public function createPost(Post $post, int $propositionId): void {
+        $sql = "INSERT INTO Post (titre, contenu, propositionId) VALUES (?, ?, ?)"; 
+        
+        $stmt = $this->db->prepare($sql); 
+        $stmt->execute([$post->getTitre(), $post->getContenu(), $propositionId]);
     }
 }

@@ -18,7 +18,7 @@ class AccueilController {
         $edition = $editionDAO->getActive();
 
         $categorieDAO = new CategorieDAO();
-        $categories = $categorieDAO->getCategoriesForEdition($edition->getId());
+        $categories = $categorieDAO->getCategoriesFromEdition($edition->getId());
 
         $page = new PageAccueil("Accueil", $phase, $categories);
         $page->render(); // le contrôleur déclenche l’affichage
