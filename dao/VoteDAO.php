@@ -27,21 +27,4 @@ class VoteDAO extends DAO implements IVoteWriter {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$itemId, date('Y-m-d H:i:s')]);
     }
-
-
-    public function addProposition(PropositionItem $proposition, int $categorieId): void {
-        $item = $this->findItem($proposition->getIdDeezer());
-        if ($item) {
-            $itemId = $item['id'];
-        } else {
-            $itemId = $this->createItem($proposition);
-        }
-
-        $sql = "INSERT INTO proposition (itemId, categorieId, dateProposition) 
-                VALUES (?, ?, ?)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$itemId, $categorieId, date('Y-m-d H:i:s')]);
-
-        return;
-    }
 }

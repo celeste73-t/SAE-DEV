@@ -6,6 +6,7 @@ require_once 'interfaces/userCategorieStatus/IUserCategorieStatusReader.php';
 require_once 'interfaces/userCategorieStatus/IUserCategorieStatusWriter.php';
 
 use dao\DAO;
+use PDO;
 use interfaces\userCategorieStatus\IUserCategorieStatusReader;
 use interfaces\userCategorieStatus\IUserCategorieStatusWriter;
 
@@ -47,13 +48,13 @@ class UserCategorieStatusDAO extends DAO implements IUserCategorieStatusReader, 
 
     // Private
 
-    private function findRow($userId, $categorieId): array { 
+    private function findRow($userId, $categorieId) { 
         $sql = "SELECT * 
                 FROM statut_user_categorie 
                 WHERE utilisateurId = ? AND categorieId = ?"; 
         $stmt = $this->db->prepare($sql); 
         $stmt->execute([$userId, $categorieId]); 
-        return $stmt->fetch(\PDO::FETCH_ASSOC); 
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
     } 
 
     private function createRow($userId, $categorieId): void { 

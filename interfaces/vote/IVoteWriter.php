@@ -7,5 +7,4 @@ use model\PropositionItem;
 
 interface IVoteWriter {
     public function addVote(PropositionItem $proposition): void;
-    public function addProposition(PropositionItem $proposition, int $categorieId): void;
 }
