@@ -1,27 +1,37 @@
 <?php
 namespace controller\composant;
 
-require_once 'dao/PostDAO.php';
-require_once 'dao/CommentaireDAO.php';
+require_once 'vue/composant/PostView.php';
 require_once 'controller/composant/CommentaireController.php';
 require_once 'model/Post.php';
-require_once 'vue/composant/PostView.php';
+require_once 'interfaces/post/IPostWriter.php';
+require_once 'interfaces/commentaire/ICommentaireReader.php';
+require_once 'interfaces/commentaire/ICommentaireWriter.php';
 
-use dao\PostDAO;
-use dao\CommentaireDAO;
 use controller\composant\CommentaireController;
 use model\Post;
 use vue\composant\PostView;
+use interfaces\post\IPostWriter;
+use interfaces\commentaire\ICommentaireReader;
+use interfaces\commentaire\ICommentaireWriter;
 
 class PostController {
+    private IPostWriter $postWriter;
+    private ICommentaireReader $commentaireReader;
+    private ICommentaireWriter $commentaireWriter;
+
+    public function __construct(IPostWriter $postWriter, ICommentaireReader $commentaireReader, ICommentaireWriter $commentaireWriter) {
+        $this->postWriter = $postWriter;
+        $this->commentaireReader = $commentaireReader;
+        $this->commentaireWriter = $commentaireWriter;
+    }
 
     public function build(Post $post, string $auteur) {
-        $commentaireDAO = new CommentaireDAO(); 
-        $commentairesData = $commentaireDAO->getCommentaireByPostId($post->getId());
+        $commentairesData = $this->commentaireReader->getCommentaireByPostId($post->getId());
         
         $commentairesViews = []; 
         foreach ($commentairesData as $row) { 
-            $postController = new CommentaireController();
+            $postController = new CommentaireController($this->commentaireReader, $this->commentaireWriter);
             $commentairesViews[] =  $postController->build($row['commentaire'],   $row['auteur']);
         }
         return new PostView($post, $auteur, $commentairesViews);
@@ -34,8 +44,7 @@ class PostController {
 
         $post = new Post(null, $titre, $contenu);
 
-        $postDAO = new PostDAO(); 
-        $postDAO->createPost($post, $propositionId); 
+        $this->postWriter->createPost($post, $propositionId); 
         header("Location: index.php?page=validation"); 
         exit;
     }

@@ -1,6 +1,16 @@
 <?php
 
 require_once 'service/SessionManager.php';
+require_once 'dao/CategorieDAO.php';
+require_once 'dao/EditionDAO.php';
+require_once 'dao/EditionDAO.php';
+require_once 'dao/PropositionDAO.php';
+require_once 'dao/UserDAO.php';
+require_once 'dao/ResultatDAO.php';
+require_once 'dao/PostDAO.php';
+require_once 'dao/CommentaireDAO.php';
+require_once 'dao/UserCategorieStatusDAO.php';
+require_once 'dao/VoteDAO.php';
 require_once 'controller/AccueilController.php';
 require_once 'controller/AProposController.php';
 require_once 'controller/CandidatController.php';
@@ -16,6 +26,15 @@ require_once 'controller/composant/PostController.php';
 require_once 'controller/composant/CommentaireController.php';
 
 use service\SessionManager;
+use dao\CategorieDAO;
+use dao\EditionDAO;
+use dao\PropositionDAO;
+use dao\UserDAO;
+use dao\ResultatDAO;
+use dao\PostDAO;
+use dao\CommentaireDAO;
+use dao\UserCategorieStatusDAO;
+use dao\VoteDAO;
 use controller\AccueilController;
 use controller\AProposController;
 use controller\CandidatController;
@@ -32,6 +51,17 @@ use controller\composant\CommentaireController;
 
 session_start();
 
+// Création des dao
+$categorieDAO = new CategorieDAO();
+$editionDAO = new EditionDAO();
+$propositionDAO = new PropositionDAO();
+$userDAO = new UserDAO();
+$resultatDAO = new ResultatDAO();
+$postDAO = new PostDAO();
+$commentaireDAO = new CommentaireDAO();
+$userCategorieStatusDAO = new UserCategorieStatusDAO();
+$voteDAO = new VoteDAO();
+
 // La page par defaut est la page d'acceuil
 $page = $_GET['page'] ?? 'accueil';
 
@@ -43,7 +73,7 @@ switch ($page) {
         if (SessionManager::getInstance()->isCandidat()) {
             header("Location: index.php?page=candidat");
         }
-        $controller = new AccueilController();
+        $controller = new AccueilController($editionDAO, $categorieDAO);
         $controller->index();
         break;
     case 'aPropos':
@@ -51,7 +81,7 @@ switch ($page) {
         $controller->index();
         break;
     case 'candidat':
-        $controller = new CandidatController();
+        $controller = new CandidatController($propositionDAO, $categorieDAO);
         $controller->index();
         break;
     case 'cgu':
@@ -59,7 +89,7 @@ switch ($page) {
         $controller->index();
         break;
     case 'connexion':
-        $controller = new ConnexionController();
+        $controller = new ConnexionController($userDAO);
         if ($action === "login") {
             $controller->login();
         }elseif ($action === 'logout') {
@@ -73,7 +103,7 @@ switch ($page) {
         $controller->index();
         break;
     case 'inscription':
-        $controller = new InscriptionController();
+        $controller = new InscriptionController($userDAO, $userDAO);
         if ($action === "register") {
             $controller->register();
         } else {
@@ -81,7 +111,7 @@ switch ($page) {
         }
         break;
     case 'proposition':
-        $controller = new PropositionController();
+        $controller = new PropositionController($categorieDAO);
         if ($action === "search") {
             $query = $_GET['q'] ?? null;
             $controller->search($query);
@@ -93,12 +123,12 @@ switch ($page) {
         }
         break;
     case 'resultat':
-        $controller = new ResultatController();
+        $controller = new ResultatController($categorieDAO, $resultatDAO);
         $categorie = $_GET['categorie'] ?? null;
         $controller->index($categorie);
         break;
     case 'validation':
-        $controller = new ValidationController();
+        $controller = new ValidationController($categorieDAO, $propositionDAO, $propositionDAO, $postDAO, $postDAO, $commentaireDAO, $commentaireDAO, $userCategorieStatusDAO, $userCategorieStatusDAO, $editionDAO, $voteDAO);
         if ($action === "validate") {
             $controller->validate();
         } else {
@@ -106,7 +136,7 @@ switch ($page) {
         }
         break;
     case 'vote':
-        $controller = new VoteController();
+        $controller = new VoteController($categorieDAO, $propositionDAO);
         if ($action === "select") {
             $controller->select();
         } else {
@@ -115,13 +145,13 @@ switch ($page) {
         }
         break;
     case 'post':
-        $controller = new PostController();
+        $controller = new PostController($postDAO, $commentaireDAO,$commentaireDAO);
         if ($action === 'create') {
             $controller->create();
         }
         break;
     case 'commentaire':
-        $controller = new CommentaireController();
+        $controller = new CommentaireController($commentaireDAO, $commentaireDAO);
         if ($action === 'create') {
             $controller->create();
         }

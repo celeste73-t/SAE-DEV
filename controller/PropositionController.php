@@ -2,24 +2,28 @@
 namespace controller;
 
 require_once 'vue/page/PageProposition.php';
-require_once 'dao/CategorieDAO.php';
+require_once 'interfaces/categorie/ICategorieReader.php';
 require_once 'service/ApiAcces.php';
 require_once 'service/Enum.php';
 require_once 'model/PropositionItem.php';
 
 use vue\page\PageProposition;
-use dao\CategorieDAO;
+use interfaces\categorie\ICategorieReader;
 use service\ApiAcces;
 use service\CategorieType;
 use model\PropositionItem;
 
 class PropositionController {
+    private ICategorieReader $categorieReader;
+
+    public function __construct(ICategorieReader $categorieReader) {
+        $this->categorieReader = $categorieReader;
+    }
 
     public function index($categorieId) {
         $_SESSION['categorieId'] = $categorieId; // Stocke l'ID de la catégorie dans la session car perdu lors de l'appel AJAX
 
-        $categorieDAO = new CategorieDAO();
-        $categorie = $categorieDAO->findById($categorieId);
+        $categorie = $this->categorieReader->findById($categorieId);
 
         $page = new PageProposition("Propositions", $categorie);
         $page->render(); // le contrôleur déclenche l’affichage
@@ -28,8 +32,7 @@ class PropositionController {
     public function search($query) {
         $categorieId = $_SESSION['categorieId'] ?? null;
 
-        $categorieDAO = new CategorieDAO();
-        $categorie = $categorieDAO->findById($categorieId);
+        $categorie = $this->categorieReader->findById($categorieId);
 
         $json = ApiAcces::search($categorie->getType()->value, $query);
         $data = json_decode($json, true);

@@ -2,17 +2,26 @@
 namespace controller;
 
 require_once 'vue/page/PageInscription.php';
-require_once 'dao/UserDAO.php';
+require_once 'interfaces/user/IUserReader.php';
+require_once 'interfaces/user/IUserWriter.php';
 require_once 'model/User.php';
 require_once 'service/Enum.php';
 
 use vue\page\PageInscription;
-use dao\UserDAO;
+use interfaces\user\IUserReader;
+use interfaces\user\IUserWriter;
 use model\User;
 use service\UserRole;
 
 class InscriptionController {
+    private IUserReader $userReader;
+    private IUserWriter $userWriter;
     private $errorMessage = null;
+
+    public function __construct(IUserReader $userReader, IUserWriter $userWriter) {
+        $this->userReader = $userReader;
+        $this->userWriter = $userWriter;
+    }
 
     public function index() {
         $page = new PageInscription("Inscription", $this->errorMessage);
@@ -31,9 +40,7 @@ class InscriptionController {
             return; 
         }
 
-        $dao = new UserDAO();
-
-        if ($dao->findByEmail($email) !== null) {
+        if ($this->userReader->findByEmail($email) !== null) {
             $this->errorMessage = "Un utilisateur avec cet email existe déjà";
             $this->index();
             return;
@@ -49,7 +56,7 @@ class InscriptionController {
             UserRole::User
         );
 
-        if (!$dao->newUser($user)) { 
+        if (!$this->userWriter->newUser($user)) { 
             $this->errorMessage = "Erreur lors de l'inscription"; 
             $this->index(); 
             return; 

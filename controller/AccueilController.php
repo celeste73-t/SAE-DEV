@@ -2,23 +2,29 @@
 namespace controller;
 
 require_once 'vue/page/PageAccueil.php';
-require_once 'dao/CategorieDAO.php';
-require_once 'dao/EditionDAO.php';
+require_once 'interfaces/edition/IEditionReader.php';
+require_once 'interfaces/categorie/ICategorieReader.php';
 
 use vue\page\PageAccueil;
 use service\VotePhase;
-use dao\CategorieDAO;
-use dao\EditionDAO;
+use interfaces\edition\IEditionReader;
+use interfaces\categorie\ICategorieReader;
 
 class AccueilController {
+    private IEditionReader $editionReader;
+    private ICategorieReader $categorieReader;
+
+    public function __construct(IEditionReader $editionReader, ICategorieReader $categorieReader) {
+        $this->editionReader = $editionReader;
+        $this->categorieReader = $categorieReader;
+    }
+
     public function index() {
         $phase = VotePhase::getPhaseVote();
 
-        $editionDAO = new EditionDAO();
-        $edition = $editionDAO->getActive();
+        $edition = $this->editionReader->getActive();
 
-        $categorieDAO = new CategorieDAO();
-        $categories = $categorieDAO->getCategoriesFromEdition($edition->getId());
+        $categories = $this->categorieReader->getCategoriesFromEdition($edition->getId());
 
         $page = new PageAccueil("Accueil", $phase, $categories);
         $page->render(); // le contrôleur déclenche l’affichage

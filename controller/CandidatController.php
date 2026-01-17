@@ -3,19 +3,27 @@ namespace controller;
 
 require_once 'service/SessionManager.php';
 require_once 'vue/page/PageCandidat.php';
-require_once 'dao/PropositionDAO.php';
-require_once 'dao/CategorieDAO.php';
+require_once 'interfaces/proposition/IPropositionReader.php';
+require_once 'interfaces/categorie/ICategorieReader.php';
 require_once 'model/PropositionItem.php';
 require_once 'service/VotePhase.php';
 
 use service\SessionManager;
 use vue\page\PageCandidat;
-use dao\PropositionDAO;
-use dao\CategorieDAO;
+use interfaces\proposition\IPropositionReader;
+use interfaces\categorie\ICategorieReader;
 use model\PropositionItem;
 use service\VotePhase;
 
 class CandidatController {
+    private IPropositionReader $propositionReader;
+    private ICategorieReader $categorieReader;
+
+    public function __construct(IPropositionReader $propositionReader, ICategorieReader $categorieReader) {
+        $this->propositionReader = $propositionReader;
+        $this->categorieReader = $categorieReader;
+    }
+
     public function index() {
         $phase = VotePhase::getPhaseVote();
 
@@ -24,17 +32,14 @@ class CandidatController {
             header("Location: index.php?page=accueil");
         }
 
-        $propositionDAO = new PropositionDAO(); 
-        $propositionsRaw = $propositionDAO->getNominatedPropositionsByCandidat($session->getUser()->getId());
-
-        $categorieDAO = new CategorieDAO();
+        $propositionsRaw = $this->propositionReader->getNominatedPropositionsByCandidat($session->getUser()->getId());
 
         $propositions = [];
         $categories = [];
         foreach ($propositionsRaw as $entry) {
             $propositions[] = $entry["propositionItem"];
 
-            $categories[] = $categorieDAO->findById($entry['categorieId']);
+            $categories[] = $this->categorieReader->findById($entry['categorieId']);
         }
 
         $page = new PageCandidat("Espace Candidat", $phase, $propositions, $categories);
@@ -45,8 +50,7 @@ class CandidatController {
         $data = json_decode(file_get_contents("php://input"), true); 
         $deezerId = $data['id']; 
         $categorieId = $data['categorie']; 
-        $propositionDAO = new PropositionDAO();
-        $itemData = $propositionDAO->findItem($deezerId);
+        $itemData = $this->propositionReader->findItem($deezerId);
         $proposition = new PropositionItem(
             $itemData['id'],
             $itemData['deezerId'], 

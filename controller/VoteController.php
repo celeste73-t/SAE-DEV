@@ -2,24 +2,30 @@
 namespace controller;
 
 require_once 'vue/page/PageVote.php';
-require_once 'dao/CategorieDAO.php';
-require_once 'dao/PropositionDAO.php';
+require_once 'interfaces/categorie/ICategorieReader.php';
+require_once 'interfaces/proposition/IPropositionReader.php';
 require_once 'model/PropositionItem.php';
 
 use vue\page\PageVote;
-use dao\CategorieDAO;
-use dao\PropositionDAO;
+use interfaces\categorie\ICategorieReader;
+use interfaces\proposition\IPropositionReader;
 use model\PropositionItem;
 
 class VoteController {
+    private ICategorieReader $categorieReader;
+    private IPropositionReader $propositionReader;
+
+    public function __construct(ICategorieReader $categorieReader, IPropositionReader $propositionReader) {
+        $this->categorieReader = $categorieReader;
+        $this->propositionReader = $propositionReader;
+    }
+
     public function index($categorieId) {
         // recupérer la catégorie depuis la base de données
-        $categorieDAO = new CategorieDAO();
-        $categorie = $categorieDAO->findById($categorieId);
+        $categorie = $this->categorieReader->findById($categorieId);
 
         // révupérer les propositions associées à cette catégorie
-        $propositionDAO = new PropositionDAO();
-        $propositions = $propositionDAO->getNominatedPropositions($categorieId);
+        $propositions = $this->propositionReader->getNominatedPropositions($categorieId);
 
         $page = new PageVote("Vote", $categorie, $propositions);
         $page->render(); // le contrôleur déclenche l’affichage
@@ -29,8 +35,7 @@ class VoteController {
         $data = json_decode(file_get_contents("php://input"), true); 
         $deezerId = $data['id']; 
         $categorieId = $data['categorie']; 
-        $propositionDAO = new PropositionDAO();
-        $itemData = $propositionDAO->findItem($deezerId);
+        $itemData = $this->propositionReader->findItem($deezerId);
         $proposition = new PropositionItem(
             $itemData['id'],
             $itemData['deezerId'], 

@@ -3,15 +3,15 @@ namespace dao;
 
 require_once 'dao/DAO.php';
 require_once 'model/PropositionItem.php';
-require_once 'interfaces/vote/IVoteReader.php';
+require_once 'interfaces/vote/IVoteWriter.php';
 
 use dao\DAO;
-use interfaces\vote\IVoteReader;
+use interfaces\vote\IVoteWriter;
 use model\PropositionItem;
 
-class VoteDAO extends DAO implements IVoteReader {
+class VoteDAO extends DAO implements IVoteWriter {
 
-    // Read
+    // Write
 
     public function addVote(PropositionItem $proposition): void {
         $propositionDAO = new PropositionDAO();

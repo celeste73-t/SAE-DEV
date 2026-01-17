@@ -2,16 +2,21 @@
 namespace controller;
 
 require_once 'vue/page/PageConnexion.php';
-require_once 'dao/UserDAO.php';
+require_once 'interfaces/user/IUserReader.php';
 require_once 'service/SessionManager.php';
 require_once 'service/Enum.php';
 
 use vue\page\PageConnexion;
-use dao\UserDAO;
+use interfaces\user\IUserReader;
 use service\SessionManager;
 
 class ConnexionController {
+    private IUserReader $userReader;
     private $errorMessage = null;
+
+    public function __construct(IUserReader $userReader) {
+        $this->userReader = $userReader;
+    }
 
     public function index() {
         $page = new PageConnexion("Connexion", $this->errorMessage);
@@ -29,8 +34,7 @@ class ConnexionController {
             return;
         }
 
-        $userDAO = new UserDAO();
-        $user = $userDAO->findByEmail($email);
+        $user = $this->userReader->findByEmail($email);
 
         if (!$user) {
             $this->errorMessage = "Email ou mot de passe incorrect";

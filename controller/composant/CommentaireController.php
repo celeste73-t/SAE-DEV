@@ -1,23 +1,31 @@
 <?php
 namespace controller\composant;
 
-require_once 'dao/CommentaireDAO.php';
-require_once 'model/Commentaire.php';
 require_once 'vue/composant/CommentaireView.php';
+require_once 'model/Commentaire.php';
+require_once 'interfaces/commentaire/ICommentaireReader.php';
+require_once 'interfaces/commentaire/ICommentaireWriter.php';
 
-use dao\CommentaireDAO;
 use model\Commentaire;
 use vue\composant\CommentaireView;
+use interfaces\commentaire\ICommentaireReader;
+use interfaces\commentaire\ICommentaireWriter;
 
 class CommentaireController {
+    private ICommentaireReader $commentaireReader;
+    private ICommentaireWriter $commentaireWriter;
+
+    public function __construct(ICommentaireReader $commentaireReader, ICommentaireWriter $commentaireWriter) {
+        $this->commentaireReader = $commentaireReader;
+        $this->commentaireWriter = $commentaireWriter;
+    }
 
     public function build(Commentaire $commentaire, string $auteur) {
-        $commentaireDAO = new CommentaireDAO(); 
-        $commentairesData = $commentaireDAO->getReponses($commentaire->getId());
+        $commentairesData = $this->commentaireReader->getReponses($commentaire->getId());
         
         $commentairesViews = []; 
         foreach ($commentairesData as $row) { 
-            $postController = new CommentaireController();
+            $postController = new CommentaireController($this->commentaireReader, $this->commentaireWriter);
             $commentairesViews[] =  $postController->build($row['commentaire'],   $row['auteur']);
         }
         return new CommentaireView($commentaire, $auteur, $commentairesViews);
@@ -31,13 +39,12 @@ class CommentaireController {
 
         $commentaire = new Commentaire(null, $contenu);
 
-        $commentaireDAO = new CommentaireDAO(); 
         if ($postId && !$commentaireId) { 
-            $commentaireDAO->createCommentaire($commentaire, $userId, $postId, null); 
+            $this->commentaireWriter->createCommentaire($commentaire, $userId, $postId, null); 
         } 
         
         if ($commentaireId) { 
-            $commentaireDAO->createCommentaire($commentaire, $userId, null, $commentaireId); 
+            $this->commentaireWriter->createCommentaire($commentaire, $userId, null, $commentaireId); 
         }
         header("Location: index.php?page=validation"); 
         exit;
