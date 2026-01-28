@@ -17,14 +17,14 @@ class PropositionDAO extends DAO implements IPropositionReader, IPropositionWrit
 
     // Read
 
-    public function findItem(int $deezerId): array {
+    public function findItem(int $deezerId) {
         $sql = "SELECT * FROM proposition_item WHERE deezerId = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$deezerId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function findPropositionByDeezerId(int $deezerId): array {
+    public function findPropositionByDeezerId(int $deezerId) {
         $sql = "SELECT p.* 
                 FROM proposition p
                 JOIN proposition_item i ON p.itemId = i.id

@@ -254,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `bdd_sae`.`Commentaire` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Commentaire_Commentaire1`
-    FOREIGN KEY (`commentauireId`)
+    FOREIGN KEY (`commentaireId`)
     REFERENCES `bdd_sae`.`Commentaire` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

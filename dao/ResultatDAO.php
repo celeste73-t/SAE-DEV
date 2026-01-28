@@ -24,7 +24,8 @@ class ResultatDAO extends DAO implements IResultatReader, IResultatWriter{
                 JOIN proposition p ON v.propositionId = p.id 
                 WHERE p.categorieId = ? 
                 GROUP BY p.itemId 
-                ORDER BY nbVote DESC";
+                ORDER BY nbVote DESC
+                LIMIT 5;";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$categorieId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

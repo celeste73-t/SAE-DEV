@@ -82,12 +82,17 @@ class ValidationController {
         $blocPropositionController = new BlocPropositionController($proposition, $categorie);
         $blocProposition = $blocPropositionController->build();
 
-        $item = $this->propositionReader->findPropositionByDeezerId($proposition->getIdDeezer());
+        if (VotePhase::getPhaseVote() == PhaseVote::Vote2) {
+            $item = $this->propositionReader->findItem($proposition->getIdDeezer());
 
-        $blocInteractionController = new BlocInteractionController($this->postReader, $this->postWriter, $this->commentaireReader, $this->commentaireWriter, $item['id']);
-        $blocInteraction = $blocInteractionController->build();
+            $blocInteractionController = new BlocInteractionController($this->postReader, $this->postWriter, $this->commentaireReader, $this->commentaireWriter, $item['id']);
+            $blocInteraction = $blocInteractionController->build();
 
-        $page = new PageValidation("Validation", $blocProposition, $blocInteraction, $categorie, $phase);
+            $page = new PageValidation("Validation", $blocProposition, $blocInteraction, $categorie, $phase);
+        } else {
+            $page = new PageValidation("Validation", $blocProposition, null, $categorie, $phase);
+        }
+        
         $page->render(); // le contrôleur déclenche l’affichage
     }
 
