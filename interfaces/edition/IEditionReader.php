@@ -7,5 +7,6 @@ use model\Edition;
 
 interface IEditionReader {
     public function getActive(): Edition;
+    public function getEditions(): array;
     public function categorieInActiveEdition(int $categorieId): bool;
 }

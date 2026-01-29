@@ -4,7 +4,7 @@ namespace model;
 use DateTime;
 
 class Edition {
-    private int $id;
+    private ?int $id;
     private string $nom;
     private DateTime $debutNomination;
     private DateTime $debutVote;
@@ -12,7 +12,7 @@ class Edition {
     private bool $active;
 
     public function __construct(
-        int $id,
+        ?int $id,
         string $nom,
         DateTime $debutNomination,
         DateTime $debutVote,
@@ -28,7 +28,7 @@ class Edition {
     }
 
     
-    public function getId(): int {
+    public function getId(): ?int {
         return $this->id;
     }
 

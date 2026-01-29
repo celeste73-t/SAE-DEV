@@ -26,7 +26,8 @@ VALUES
 INSERT INTO utilisateur (nom, email, motDePasse, userType) 
 VALUES 
 ('test', 'test@tes.test', '$2y$10$0vHPn9Lw/c1RwDT9ObLOV.XsnXKKH.ySerCFk0FtxFQBIFuFrqkfS', 'membre'),
-('candidat', 'candidat@test', '$2y$10$Tvvca2u/dmg7iQwjBA4CF.Z56jFxhg.QXALOxspx0O3fTFtmsssGa', 'membre');
+('candidat', 'candidat@test', '$2y$10$Tvvca2u/dmg7iQwjBA4CF.Z56jFxhg.QXALOxspx0O3fTFtmsssGa', 'membre'),
+('admin', 'admin@test', '$2y$10$7.qutaF35Whxmlg5BM8DKeoblFn4YlCuzeBHlGX9G/2iSJVayBcL2', 'administrateur');
 
 INSERT INTO candidat (utilisateurId) 
 VALUES (2);

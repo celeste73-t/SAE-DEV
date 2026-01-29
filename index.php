@@ -12,6 +12,7 @@ require_once 'dao/CommentaireDAO.php';
 require_once 'dao/UserCategorieStatusDAO.php';
 require_once 'dao/VoteDAO.php';
 require_once 'controller/AccueilController.php';
+require_once 'controller/AdministrateurController.php';
 require_once 'controller/AProposController.php';
 require_once 'controller/CandidatController.php';
 require_once 'controller/CGUController.php';
@@ -36,6 +37,7 @@ use dao\CommentaireDAO;
 use dao\UserCategorieStatusDAO;
 use dao\VoteDAO;
 use controller\AccueilController;
+use controller\AdministrateurController;
 use controller\AProposController;
 use controller\CandidatController;
 use controller\CGUController;
@@ -72,9 +74,19 @@ switch ($page) {
     case 'accueil':
         if (SessionManager::getInstance()->isCandidat()) {
             header("Location: index.php?page=candidat");
+        } if (SessionManager::getInstance()->isAdmin()) {
+            header("Location: index.php?page=admin");
         }
         $controller = new AccueilController($editionDAO, $categorieDAO);
         $controller->index();
+        break;
+    case 'admin':
+        $controller = new AdministrateurController($editionDAO, $editionDAO);
+        if ($action == "validate") {
+            $controller->validate();
+        } else {
+            $controller->index();
+        }
         break;
     case 'aPropos':
         $controller = new AProposController();

@@ -104,3 +104,48 @@ function detailRedirection(e) {
         window.location.href = "index.php?page=validation"; 
     }); 
 }
+
+
+// page administrateur
+
+const container = document.getElementById("editionData"); 
+const editions = JSON.parse(container.dataset.editions);
+
+const select = document.querySelector("select[name='activeEdition']");
+const editionId = document.getElementById("editionId"); 
+const nom = document.getElementById("nom"); 
+const dateProp = document.getElementById("dateProposition"); 
+const dateVote = document.getElementById("dateVote"); 
+const dateRes = document.getElementById("dateResultat"); 
+const submitBtn = document.getElementById("submitBtn"); 
+
+select.addEventListener("change", selectEdition);
+
+selectEdition();
+
+function selectEdition() {
+    console.log("test")
+
+    const id = select.value; 
+    if (id === "new") { 
+        editionId.value = ""; 
+        nom.value = ""; 
+        dateProp.value = ""; 
+        dateVote.value = ""; 
+        dateRes.value = ""; 
+        submitBtn.textContent = "Ajouter l’édition";
+        return; 
+    } 
+    
+    const edition = editions.find(e => e.id == id); 
+    
+    if (!edition) 
+        return; 
+    
+    editionId.value = edition.id; 
+    nom.value = edition.nom; 
+    dateProp.value = edition.debutNomination; 
+    dateVote.value = edition.debutVote; 
+    dateRes.value = edition.debutResultat; 
+    submitBtn.textContent = "Modifier l’édition"; 
+};

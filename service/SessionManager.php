@@ -40,6 +40,16 @@ class SessionManager {
         }
     }
 
+    public function isAdmin() {
+        $user = $this->getUser();
+        if ($user === null){
+            return false;
+        }
+        else {
+            return $user->getRole() == UserRole::Admin;
+        }
+    }
+
     public function setSuccessMessage(string $message) {
         $_SESSION['successMessage'] = $message;
     }
