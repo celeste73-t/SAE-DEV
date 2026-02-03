@@ -62,7 +62,7 @@ class UserDAO extends DAO implements IUserReader, IUserWriter {
 
     public function newUser(User $user): bool {
         try {
-            $query = "INSERT INTO Utilisateur (nom, email, motDePasse, userType) VALUES (:nom, :email, :mdp, :type)";
+            $query = "INSERT INTO utilisateur (nom, email, motDePasse, userType) VALUES (:nom, :email, :mdp, :type)";
             $stmt = $this->db->prepare($query);
             
             $nom = $user->getNom();

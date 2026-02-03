@@ -58,7 +58,6 @@ class ConnexionController {
 
     public function logout() {
         // Détruire la session
-        session_start();
         session_unset();
         session_destroy();
 
